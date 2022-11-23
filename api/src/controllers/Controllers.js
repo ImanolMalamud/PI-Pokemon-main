@@ -156,8 +156,7 @@ const pokeCreate = async (body) => {
 		!defense ||
 		!speed ||
 		!height ||
-		!weight ||
-		type.length === 0
+		!weight
 	) { throw new Error('Faltan datos')};
 
 	await pokeValidateName(name);
