@@ -23,16 +23,16 @@ export default function Detail() {
                     <ul>
                         <li>
                             Types: {newPokemonDetail?.types?.map(type => {
-                                return (<>{type}, </>)
+                                return (<div>{type}</div>)
                             })}
                         </li>
 
 
-                        <li>Attack: {newPokemonDetail.attack}</li>
-                        <li>Defense: {newPokemonDetail.defense}</li>
-                        <li>Speed: {newPokemonDetail.speed}</li>
-                        <li>Height: {newPokemonDetail.height}</li>
-                        <li>Weight: {newPokemonDetail.weight}</li>
+                        <li>Attack: <div>{newPokemonDetail.attack}</div></li>
+                        <li>Defense: <div>{newPokemonDetail.defense}</div></li>
+                        <li>Speed: <div>{newPokemonDetail.speed}</div></li>
+                        <li>Height: <div>{newPokemonDetail.height}</div></li>
+                        <li>Weight: <div>{newPokemonDetail.weight}</div></li>
                     </ul>
                 </div>
                 <img src={newPokemonDetail.img} alt="" />

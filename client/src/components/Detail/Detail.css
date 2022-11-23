@@ -43,9 +43,25 @@
 }
 
 .detail-data .pokemon-properties {
+    text-align: start;
     position: absolute;
     left: 20px;
     width: 400px;
     height: 350px;
-    background-color: hsl(305, 33%, 69%, 0.5);
+    background-color: hsl(305, 33%, 69%, 0.7);
+}
+
+.detail-data .pokemon-properties li{
+    padding: 1% 0 4% 0;
+}
+
+.detail-data .pokemon-properties li div{
+    font-weight: bold;
+    display: inline-block;
+    background-color:hsl(0, 0%, 100%, 0.5);
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: 10px;
+    text-align: center;
+    padding: 5px;
 }
