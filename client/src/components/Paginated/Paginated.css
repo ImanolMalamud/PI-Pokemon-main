@@ -1,0 +1,16 @@
+.paginated-container {
+    margin: 20px 0 20px 0;
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.paginated-container button {
+    font-size: 30px;
+    width: 40px;
+}
+
+.paginated-container button:hover {
+    background-color: hsl(200, 100%, 50%);
+    border-color: hsl(200, 100%, 50%);
+}

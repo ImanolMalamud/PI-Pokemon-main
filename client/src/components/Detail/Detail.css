@@ -1,0 +1,51 @@
+.detail-container {
+    /* background-color: white; */
+    width: 100vw;
+    height: 90vh;
+}
+
+.detail-data {
+    /* outline: 2px solid white; */
+    position: relative;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 400px;
+    background-color: hsla(295, 4%, 30%, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 10px 5px white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.detail-data img {
+    /* outline: 2px solid yellow; */
+    width: 370px;
+    position: absolute;
+    right: 10px;
+}
+
+.detail-container .name-container{
+
+    /*Se ajusta el div al contenido del bloque*/
+    display: inline-block;
+
+    position: relative;
+    top: 2.5%;
+    font-size: 40px;
+    color: white;
+    background-color: hsla(295, 4%, 30%, 0.85);
+    box-shadow: 0 0 10px 5px white;
+    border-radius: 7px;
+    padding: 0 4px 0 4px;
+}
+
+.detail-data .pokemon-properties {
+    position: absolute;
+    left: 20px;
+    width: 400px;
+    height: 350px;
+    background-color: hsl(305, 33%, 69%, 0.5);
+}

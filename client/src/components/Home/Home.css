@@ -1,0 +1,14 @@
+.home-container {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+}
+
+.search-filter-sort {
+    width: 100%;
+    display: flex;
+    column-gap: 30px;
+    justify-content: center;
+}
