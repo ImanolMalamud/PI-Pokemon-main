@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPokemon, getAllTypes } from '../../redux/actions';
+import { createPokemon, getAllImgTypes, getAllPokemons, getAllTypes, loading, resetFilter, resetPokemons, resetSort } from '../../redux/actions';
 import './CreatePokemon.css'
 
-export default function CreatePokemon() {
+export default function CreatePokemon({ history }) {
     const [newPokemon, setNewPokemon] = useState({
         name: '',
         hp: '',
@@ -16,7 +16,6 @@ export default function CreatePokemon() {
         img: '',
         type: [],
     });
-
     const [errors, setErrors] = useState({
         initial: true
     });
@@ -25,131 +24,70 @@ export default function CreatePokemon() {
 
     const types = useSelector(state => state.types)
     const pokemons = useSelector(state => state.pokemons)
-
-
-    const validate = (input, pokemons) => {
-        let errors = {};
-        //*Name
-        if (!input.name) {
-            errors.name = 'Name is required';
-        } else if (!/^[a-zA-Z0-9\s]*$/.test(input.name)) {
-            errors.name = 'Invalid name';
-        } else if (input.name.length < 2) {
-            errors.name = 'Few characters';
-        } else if (input.name.length > 14) {
-            errors.name = 'Many characters';
-        } else if (pokemons) {
-            const pokemonFind = pokemons?.find(
-                (pokemon) => pokemon.name.toLowerCase() === input.name.toLowerCase()
-            );
-            pokemonFind && (errors.name = 'The pokemon name already exists');
-        }
-
-        //*Hp
-        if (!input.hp) {
-            errors.hp = 'Hp is required';
-        } else if (input.hp.length > 4) {
-            errors.hp = 'Max four characters';
-        } else if (input.hp < 0) {
-            errors.hp = 'Only positive numbers';
-        }
-
-        //*Attack
-        if (!input.attack) {
-            errors.attack = 'Attack is required';
-        } else if (input.attack.length > 4) {
-            errors.attack = 'Max four characters';
-        } else if (input.attack < 0) {
-            errors.attack = 'Only positive numbers';
-        }
-
-        //*Defense
-        if (!input.defense) {
-            errors.defense = 'Defense is required';
-        } else if (input.defense.length > 4) {
-            errors.defense = 'Max four characters';
-        } else if (input.defense < 0) {
-            errors.defense = 'Only positive numbers';
-        }
-
-        //*Speed
-        if (!input.speed) {
-            errors.speed = 'Speed is required';
-        } else if (input.speed.length > 4) {
-            errors.speed = 'Max four characters';
-        } else if (input.speed < 0) {
-            errors.speed = 'Only positive numbers';
-        }
-
-        //*Height
-        if (!input.height) {
-            errors.height = 'Height is required';
-        } else if (input.height.length > 4) {
-            errors.height = 'Max four characters';
-        } else if (input.height < 0) {
-            errors.height = 'Only positive numbers';
-        }
-        //*Weight
-        if (!input.weight) {
-            errors.weight = 'weight is required';
-        } else if (input.weight.length > 4) {
-            errors.weight = 'Max four characters';
-        } else if (input.weight < 0) {
-            errors.weight = 'Only positive numbers';
-        }
-        //*Type
-        if (input.type.length === 0) errors.type = 'Select at least one type';
-        //*Img
-        if (input.img) {
-            if (!/(http(s?):)([/|.|\w|\s|-])*.(?:jpg|gif|png|webp)/.test(input.img))
-                errors.img = 'Invalid URL';
-        }
-
-        return errors;
-    }
+    const imgTypes = useSelector((state) => state.imgTypes);
 
     const handleChange = (e) => {
         setNewPokemon({ ...newPokemon, [e.target.name]: e.target.value })
-        validate(newPokemon, pokemons)
+        setErrors(validate(
+            {
+                ...newPokemon,
+                [e.target.name]: e.target.value
+            },
+            pokemons
+        ))
+
     }
-    const clearForm = (e) => {
-        e.preventDefault()
-        setNewPokemon({
-            name: '',
-            hp: '',
-            attack: '',
-            defense: '',
-            speed: '',
-            height: '',
-            weight: '',
-            img: '',
-            type: [],
-        })
+
+    const handleChangeType = (e) => {
+        const addType = e.target.value.toLowerCase();
+
+        if (newPokemon?.type?.length < 3) {
+            if (newPokemon.type.includes(addType))
+                return alert('No se pueden agregar dos tipos iguales');
+
+            setNewPokemon({
+                ...newPokemon,
+                type: [...newPokemon.type, addType],
+            });
+
+            setErrors(
+                validate(
+                    {
+                        ...newPokemon,
+                        type: [...newPokemon.type, addType],
+                    },
+                    pokemons
+                )
+            );
+
+            console.log(newPokemon);
+        } else {
+            alert('No se puede agregar más de tres tipos');
+        }
     }
 
     const handleSubmit = (e) => {
+        console.log(newPokemon)
         e.preventDefault()
         dispatch(createPokemon(newPokemon));
-        alert(`Pokemon ${newPokemon.name} created successfully`);
-        setNewPokemon({
-            name: '',
-            hp: '',
-            attack: '',
-            defense: '',
-            speed: '',
-            height: '',
-            weight: '',
-            img: '',
-            type: [],
-        });
+        alert(`Pokemon ${newPokemon.name} created successfully`)
+
+        history.push('/home')
     }
 
     useEffect(() => {
-        dispatch(getAllTypes())
-    }, [dispatch])
+        types.length === 0 && dispatch(getAllTypes())
+        imgTypes.length === 0 && dispatch(getAllImgTypes())
+
+        return () => {
+            dispatch(resetSort())
+            dispatch(resetFilter())
+            dispatch(getAllPokemons())
+        }
+    }, [])
 
     return (
-        <div className='new-create-poke'>
+        <div className='create-poke'>
             <div className="form-container">
                 <form className='form' onSubmit={handleSubmit}>
                     <h2>Create Pokemon</h2>
@@ -167,7 +105,9 @@ export default function CreatePokemon() {
                                     autoComplete='off'
                                     required
                                 />
+                                {/* <span className='msg'>Valid name</span> */}
                             </div>
+
                             {/* HP */}
                             <div className="prop-container">
                                 <input
@@ -181,6 +121,7 @@ export default function CreatePokemon() {
                                     required
                                 />
                             </div>
+
                             {/* attack */}
                             <div className="prop-container">
                                 <input
@@ -194,6 +135,7 @@ export default function CreatePokemon() {
                                     required
                                 />
                             </div>
+
                             {/* defense */}
                             <div className="prop-container">
                                 <input
@@ -207,6 +149,7 @@ export default function CreatePokemon() {
                                     required
                                 />
                             </div>
+
                             {/* speed */}
                             <div className="prop-container">
                                 <input
@@ -220,6 +163,7 @@ export default function CreatePokemon() {
                                     required
                                 />
                             </div>
+
                             {/* height */}
                             <div className="prop-container">
                                 <input
@@ -233,6 +177,7 @@ export default function CreatePokemon() {
                                     required
                                 />
                             </div>
+
                             {/* weight */}
                             <div className="prop-container">
                                 <input
@@ -246,6 +191,7 @@ export default function CreatePokemon() {
                                     required
                                 />
                             </div>
+
                             {/* img */}
                             <div className="prop-container">
                                 <input
@@ -260,28 +206,46 @@ export default function CreatePokemon() {
                             </div>
                         </div>
                         <div className="types-and-buttons">
+
                             {/* type */}
                             <div className="prop-container">
                                 <select
                                     name="type"
                                     id="type"
-                                    onChange={handleChange}
+                                    onChange={handleChangeType}
                                     menuPlacement="top"
                                 >
                                     {types?.map(type => {
                                         return (
-                                            <option>{type.name}</option>
+                                            <option>{capitalize(type.name)}</option>
                                         )
                                     })}
                                 </select>
                             </div>
+
+                            <div className="types-added">
+                                {newPokemon?.type?.map(type => {
+                                    let aux = getImgByType(type, imgTypes)
+                                    let imgType = aux.url
+                                    let nameType = aux.type
+                                    return (
+                                        <div className="type">
+                                            <img src={imgType} alt='img type'></img>
+                                            <div>{nameType}</div>
+                                        </div>
+
+                                    )
+
+                                })}
+                            </div>
+
                             <div className="buttons-container">
-                                <button
+                                {/* <button
                                     className='btn-clear'
                                     onClick={clearForm}
                                 >
                                     Clear
-                                </button>
+                                </button> */}
                                 <button
                                     type='submit'
                                     // disabled={Object.values(errors).length === 0 ? false : true}
@@ -290,19 +254,111 @@ export default function CreatePokemon() {
                                             ? "button-create"
                                             : "button-create-disabled"
                                     }
+                                    disabled={Object.values(errors).length === 0 ? false : true}
                                 >
                                     Create
                                 </button>
                             </div>
                         </div>
-
-
-
                     </div>
-
-
                 </form>
             </div>
         </div>
     )
 }
+
+const validate = (input, pokemons) => {
+    let errors = {};
+    //*Name
+    if (!input.name) {
+        errors.name = 'Name is required';
+    } else if (!/^[a-zA-Z\s]*$/.test(input.name)) {
+        errors.name = 'Invalid name';
+    } else if (input.name.length < 2) {
+        errors.name = 'Few characters';
+    } else if (input.name.length > 14) {
+        errors.name = 'Many characters';
+    } else if (pokemons) {
+        const pokemonFind = pokemons?.find(
+            (pokemon) => pokemon.name.toLowerCase() === input.name.toLowerCase()
+        );
+        pokemonFind && (errors.name = 'The pokemon name already exists');
+    }
+
+    //*Hp
+    if (!input.hp) {
+        errors.hp = 'Hp is required';
+    } else if (input.hp.length > 4) {
+        errors.hp = 'Max four characters';
+    } else if (input.hp < 0) {
+        errors.hp = 'Only positive numbers';
+    }
+
+    //*Attack
+    if (!input.attack) {
+        errors.attack = 'Attack is required';
+    } else if (input.attack.length > 4) {
+        errors.attack = 'Max four characters';
+    } else if (input.attack < 0) {
+        errors.attack = 'Only positive numbers';
+    }
+
+    //*Defense
+    if (!input.defense) {
+        errors.defense = 'Defense is required';
+    } else if (input.defense.length > 4) {
+        errors.defense = 'Max four characters';
+    } else if (input.defense < 0) {
+        errors.defense = 'Only positive numbers';
+    }
+
+    //*Speed
+    if (!input.speed) {
+        errors.speed = 'Speed is required';
+    } else if (input.speed.length > 4) {
+        errors.speed = 'Max four characters';
+    } else if (input.speed < 0) {
+        errors.speed = 'Only positive numbers';
+    }
+
+    //*Height
+    if (!input.height) {
+        errors.height = 'Height is required';
+    } else if (input.height.length > 4) {
+        errors.height = 'Max four characters';
+    } else if (input.height < 0) {
+        errors.height = 'Only positive numbers';
+    }
+
+    //*Weight
+    if (!input.weight) {
+        errors.weight = 'weight is required';
+    } else if (input.weight.length > 4) {
+        errors.weight = 'Max four characters';
+    } else if (input.weight < 0) {
+        errors.weight = 'Only positive numbers';
+    }
+
+    //*Type
+    if (input.type.length === 0) errors.type = 'Select at least one type';
+
+    //*Img
+    if (input.img) {
+        if (!/(http(s?):)([/|.|\w|\s|-])*.(?:jpg|gif|png|webp)/.test(input.img))
+            errors.img = 'Invalid URL';
+    }
+
+    return errors;
+}
+
+const getImgByType = (type, imgTypes) => {
+
+    let img = imgTypes.find(imgType => type.toLowerCase() === imgType.type.toLowerCase())
+
+    if (!img) return ""
+
+    return img
+}
+
+const capitalize = (word) =>
+    word[0].toUpperCase() + word.slice(1).toLowerCase();

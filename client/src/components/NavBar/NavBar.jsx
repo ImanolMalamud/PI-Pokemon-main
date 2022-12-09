@@ -11,10 +11,10 @@ export default function NavBar() {
                 </div>
             </Link>
             <div className="menu-bar">
-                <Link to='/newhome' style={{ textDecoration: 'none' }}>
+                <Link to='/home' style={{ textDecoration: 'none' }}>
                     <h1>Home</h1>
                 </Link>
-                <Link to='/newcreatepoke' style={{ textDecoration: 'none' }}>
+                <Link to='/createpoke' style={{ textDecoration: 'none' }}>
                     <h1>Create Pokemon</h1>
                 </Link>
 

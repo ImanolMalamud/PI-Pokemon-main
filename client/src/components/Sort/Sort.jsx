@@ -9,76 +9,84 @@ export default function Order() {
     const sort = useSelector(state => state.sort)
     const types = useSelector(state => state.types)
     const pokemonsFiltered = useSelector(state => state.pokemonsFiltered)
+    const pokemonsSorted = useSelector(state => state.pokemonsSorted)
     const pokemons = useSelector(state => state.pokemons)
-    const newFilter = useSelector(state => state.newFilter)
+    const filter = useSelector(state => state.filter)
 
     useEffect(() => {
-        dispatch(actions.getAllPokemons())
         dispatch(actions.getAllTypes())
-    }, [dispatch, sort, newFilter])
+        dispatch(actions.getAllPokemons())
+    }, [dispatch, sort, filter])
 
     // Cambiamos la variable 'sort' de redux, y en funcion a esta variable se actualiza newPokemonsOrdered
-    const handleChange = (e) => {
-        dispatch(actions.newResetOrder())
+    const handleChangeSort = (e) => {
+        // dispatch(actions.getAllPokemons())
+
         switch (e.target.value) {
             case "default":
-                dispatch(actions.getAllPokemons())
+                dispatch(actions.resetSort())
                 break
             case "attackAscendent":
-                dispatch(actions.newChangeOrder({
+                dispatch(actions.resetSort())
+                dispatch(actions.changeSort({
                     ...sort,
                     ascAttack: true,
                     descAttack: false
                 }))
                 break
             case "attackDescendent":
-                dispatch(actions.newChangeOrder({
+                dispatch(actions.resetSort())
+                dispatch(actions.changeSort({
                     ...sort,
                     ascAttack: false,
                     descAttack: true
                 }))
                 break
             case "nameAscendent":
-                dispatch(actions.newChangeOrder({
+                dispatch(actions.resetSort())
+                dispatch(actions.changeSort({
                     ...sort,
                     ascName: true,
                     descName: false
                 }))
                 break
             case "nameDescendent":
-                dispatch(actions.newChangeOrder({
+                dispatch(actions.resetSort())
+                dispatch(actions.changeSort({
                     ...sort,
                     ascName: false,
                     descName: true
                 }))
                 break
-            case "nameDefault":
-                dispatch(actions.getAllPokemons())
-                break
             default:
-                return dispatch(actions.newChangeOrder({
-                    ...sort
-                }))
+                return
         }
     }
 
     const handleChangeType = (e) => {
-        dispatch(actions.newResetOrder())
+        dispatch(actions.resetFilter())
+
         if (e.target.value === 'typeDefault') {
-            return dispatch(actions.newResetFilter())
+            dispatch(actions.resetFilter())
+            // Los pokemons a renderizar finalmente siempre vienen de la variable pokemonsSort
+            return dispatch(actions.changeSort({}))
         }
 
-        dispatch(actions.newChangeFilter({
+        dispatch(actions.changeFilter({
+            ...filter,
             type: e.target.value
         }))
-        // Los pokemons a renderizar finalmente siempre vienen de la variable newPokemonsOrdered
-        return dispatch(actions.newChangeOrder({}))
+
+
+        // Los pokemons a renderizar finalmente siempre vienen de la variable pokemonsSort
+        return dispatch(actions.changeSort({}))
     }
 
     const handleResetAll = (e) => {
-        e.preventDefault()
-        dispatch(actions.newResetOrder())
-        dispatch(actions.newResetFilter())
+        // e.preventDefault()
+
+        dispatch(actions.resetSort())
+        dispatch(actions.resetFilter())
     }
 
     return (
@@ -89,7 +97,7 @@ export default function Order() {
                     defaultValue={'default'}
                     name={'name'}
                     id={'name'}
-                    onChange={handleChange}
+                    onChange={handleChangeSort}
                 >
                     <option
                         value='default'
@@ -135,7 +143,7 @@ export default function Order() {
                         )
                     })}
                 </select>
-                <button onClick={handleResetAll}>Reset</button>
+                <button onClick={handleResetAll}>Reload</button>
             </form>
         </div>
     )

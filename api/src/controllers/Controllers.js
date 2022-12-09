@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
 
-const ulr40Pokemon = 'https://pokeapi.co/api/v2/pokemon?limit=70&offset=0';
+const ulr40Pokemon = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0';
 
 // Para que el nombre del pokemon empiece en Mayusculas
 function toTitleCase(str) {
@@ -11,6 +11,8 @@ function toTitleCase(str) {
 const getPokemonsApi = async () => {
 	try {
 		const pokemonApiUrl = await axios.get(ulr40Pokemon);
+
+		// Para cada resultado de pokemonApiUrl, hacemos otra request
 		const arrayPromise = await pokemonApiUrl?.data.results.map((element) => {
 			return axios.get(element.url);
 		});
@@ -34,7 +36,7 @@ const getPokemonsApi = async () => {
 				weight: element.weight,
 				img: element.sprites.other.home.front_default,
 				imgShiny: element.sprites.other.home.front_shiny,
-				types: element.types.map((element) => element.type.name),
+				Types: element.types.map((element) => element.type.name),
 			};
 		});
 		return pokeInfoFiltered;
@@ -47,6 +49,7 @@ const getPokemonDb = async () => {
 	const pokeInfoDb = await Pokemon.findAll({
 		include: {
 			model: Type,
+			// as: 'types',
 			attributes: ['name'],
 			through: {
 				attributes: []
@@ -141,10 +144,13 @@ const pokeValidateName = async (name) => {
 
 	if (pokemonFind) {
 		throw new Error(
-			`No se pueden crear el pokemon ${name} debido a que ya existe un pokemon con ese nombre`
+			`Error al crear el pokemon ${name}. Ya existe uno con ese nombre.`
 		);
 	}	
 };
+
+// La api tiene en total 1154 pokemones
+let pokedex = 1154;
 
 const pokeCreate = async (body) => {
 	const { name, hp, attack, defense, speed, height, weight, img, type } = body;
@@ -161,9 +167,6 @@ const pokeCreate = async (body) => {
 
 	await pokeValidateName(name);
 
-	// La api tiene en total 1154 pokemones
-	let pokedex = 1154;
-
 	// Los datos integer del body llegan como string en realidad. Les hago parseInt por eso.
 	let newPokemon = await Pokemon.create({
 		name: name.toLowerCase(),
@@ -176,7 +179,7 @@ const pokeCreate = async (body) => {
 		weight: parseInt(weight),
 		img: img
 			? img
-			: 'https://assets.pokemon.com/static2/_ui/img/og-default-image.jpeg',
+			: 'https://pbs.twimg.com/profile_images/677508993686700035/5hQ59Dm4_400x400.png'
 	});
 
 	const pokeType = await Type.findAll({
@@ -184,6 +187,7 @@ const pokeCreate = async (body) => {
 			name: type,
 		},
 	});
+
 
 	// stringify para que se loguee mas lindo
 	// console.log("pokeType: \n", JSON.stringify(pokeType, null, 2));

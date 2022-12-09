@@ -4,8 +4,18 @@ import Sort from '../Sort/Sort';
 import Paginated from '../Paginated/Paginated';
 import SearchBar from '../SearchBar/SearchBar';
 import Cards from '../Cards/Cards';
+import { useEffect } from 'react';
+import { getAllPokemons, resetPokemons } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Home() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAllPokemons())
+    }, [dispatch])
+
+    const pokemons = useSelector(state => state.pokemons)
 
     return (
         <div className='home-container'>
@@ -14,12 +24,12 @@ export default function Home() {
                 <Sort />
             </div>
 
+            <Paginated />
 
-            <Cards />
+            {pokemons ? <Cards /> : <div className='.loading'>Loading...</div>}
 
-            <div className="paginated-container">
-                <Paginated />
-            </div>
+
+
         </div>
 
     )

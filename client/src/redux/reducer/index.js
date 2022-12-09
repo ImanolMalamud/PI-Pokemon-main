@@ -1,18 +1,4 @@
-import {
-	GET_ALL_POKEMONS,
-	GET_ALL_TYPES,
-	GET_POKEMON_ID,
-	GET_ALL_IMG_TYPES,
-	CREATE_POKEMON,
-	SET_NEW_POKEMON,
-	NEW_RESET_ORDER,
-	NEW_CHANGE_ORDER,
-	NEW_CHANGE_PAGE,
-	NEW_FILTER_POKEMONS_BY_NAME,
-	NEW_GET_POKEMON_BY_ID,
-	NEW_CHANGE_FILTER,
-	NEW_RESET_FILTER
-} from '../actions/index.js';
+import * as actions from '../actions'
 
 import * as reducerControllers from './controllers-reducer.js';
 
@@ -32,19 +18,21 @@ const initialState = {
 	pokemonsFiltered: [],
 	pokemonsSorted: [],
 	currentPage: 1,
-	newPokemonsPerPage: 12,
-	newPokemonDetail: {}
+	currentPokemons: [],
+	pokemonsPerPage: 12,
+	pokemonDetail: {},
+	loading: false
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GET_ALL_POKEMONS:
+		case actions.GET_ALL_POKEMONS:
 			// Si ha habido algun ordenamiento, no modificamos aquí pokemonsSorted
 			for (let prop in state.sort) {
 				if (state.sort[prop] === true) {
+
 					return {
 						...state,
-						pokemons: action.payload,
 					};
 				}
 			}
@@ -54,50 +42,42 @@ const reducer = (state = initialState, action) => {
 				if (state.filter[filter]) {
 					return {
 						...state,
-						pokemons: action.payload,
 					};
 				}
 			}
 			
 
 			// Inicialmente, tanto 'pokemonsFiltered' como 'pokemonsSorted' tienen lo mismo que 'pokemons'
+			let allPokemons = action.payload
 			return {
 				...state,
-				pokemons: action.payload,
-				pokemonsSorted: action.payload,
-				pokemonsFiltered: action.payload
+				pokemons: allPokemons,
+				pokemonsSorted: allPokemons,
+				pokemonsFiltered: allPokemons,
+				currentPokemons: state.pokemonsSorted.slice(0, state.pokemonsPerPage),
+				loading: false
 			};
 
-		
-
-		case GET_POKEMON_ID:
-			return {
-				...state,
-				loading: false,
-				pokeDetail: action.payload,
-			};
-
-		case GET_ALL_TYPES:
+		case actions.GET_ALL_TYPES:
 			return {
 				...state,
 				types: action.payload,
 			};
 
-		case GET_ALL_IMG_TYPES:
+		case actions.GET_ALL_IMG_TYPES:
 			return {
 				...state,
 				imgTypes: action.payload,
 			};
 
-		
-
-		case CREATE_POKEMON:
+		case actions.CREATE_POKEMON:
 			return {
 				...state,
 				newPokemon: true,
+				pokemonsFiltered: state.pokemons
 			};
 
-		case SET_NEW_POKEMON:
+		case actions.SET_NEW_POKEMON:
 			return {
 				...state,
 				newPokemon: false,
@@ -105,7 +85,7 @@ const reducer = (state = initialState, action) => {
 		
 
 		// queremos hacer un form que envie todos los datos de ordenamiento
-		case NEW_RESET_ORDER:
+		case actions.RESET_SORT:
 			return {
 				...state,
 				sort: {
@@ -114,52 +94,71 @@ const reducer = (state = initialState, action) => {
 					ascAttack: false,
 					descAttack: false,
 				},
-				pokemonsSorted: state.pokemonsFiltered
+				pokemonsSorted: state.pokemonsFiltered,
+				currentPokemons: state.pokemonsFiltered.slice(0, state.pokemonsPerPage),
+				currentPage: 1
 			}
-		case NEW_CHANGE_ORDER:
+
+		case actions.CHANGE_SORT:
 
 			if (action.payload.ascAttack) {
+				let aux = reducerControllers.sortAttackAsc(state.pokemonsFiltered)
 				return {
 					...state,
 					sort: action.payload,
-					pokemonsSorted: reducerControllers.sortAttackAsc(state.pokemonsFiltered)
+					pokemonsSorted: aux,
+					currentPokemons: aux.slice(0, state.pokemonsPerPage),
 				}
 			}
 
 			if (action.payload.descAttack) {
+				let aux = reducerControllers.sortAttackDesc(state.pokemonsFiltered)
 				return {
 					...state,
 					sort: action.payload,
-					pokemonsSorted: reducerControllers.sortAttackDesc(state.pokemonsFiltered)
+					pokemonsSorted: aux,
+					currentPokemons: aux.slice(0, state.pokemonsPerPage),
 				}
 			}
 
 			if (action.payload.ascName) {
+				let aux = reducerControllers.sortNameAsc(state.pokemonsFiltered)
 				return {
 					...state,
 					sort: action.payload,
-					pokemonsSorted: reducerControllers.sortNameAsc(state.pokemonsFiltered)
+					pokemonsSorted: aux,
+					currentPokemons: aux.slice(0, state.pokemonsPerPage),
 				}
 			}
 
 			if (action.payload.descName) {
+				let aux = reducerControllers.sortNameDesc(state.pokemonsFiltered)
 				return {
 					...state,
 					sort: action.payload,
-					pokemonsSorted: reducerControllers.sortNameDesc(state.pokemonsFiltered)
+					pokemonsSorted: aux,
+					currentPokemons: aux.slice(0, state.pokemonsPerPage),
 				}
 			}
 
 			return {
 				...state,
-				pokemonsSorted: state.pokemonsFiltered
+				pokemonsSorted: state.pokemonsFiltered,
+				currentPokemons: state.pokemonsFiltered.slice(0, state.pokemonsPerPage),
 			}
-		case NEW_CHANGE_PAGE:
+
+		case actions.CHANGE_PAGE:
+			let currentPage = action.payload
+			let lastPokeOfPage = currentPage * state.pokemonsPerPage
+			let firstPokeOfPage = lastPokeOfPage - state.pokemonsPerPage
+
 			return {
 				...state,
-				currentPage: action.payload
+				currentPage: action.payload,
+				currentPokemons: state.pokemonsSorted.slice(firstPokeOfPage, lastPokeOfPage)
 			}
-		case NEW_FILTER_POKEMONS_BY_NAME:
+
+		case actions.FILTER_POKEMONS_BY_NAME:
 			if (action.payload.length === 0) {
 				return {
 					...state,
@@ -179,23 +178,54 @@ const reducer = (state = initialState, action) => {
 				}
 				)
 			}
-		case NEW_GET_POKEMON_BY_ID:
+		case actions.GET_POKEMON_BY_ID:
 			return {
 				...state,
-				newPokemonDetail: action.payload
+				pokemonDetail: action.payload
 			}
-		case NEW_RESET_FILTER:
+		case actions.CLEAN_POKEMON_DETAIL:
+			return {
+				...state,
+				pokemonDetail: []
+			}
+		case actions.RESET_FILTER:
 			return {
 				...state,
 				filter: {
 					type: ""
-				}
+				},
+				pokemonsFiltered: state.pokemons,
+				pokemonsSorted: state.pokemons,
+				currentPage: 1
 			}
-		case NEW_CHANGE_FILTER:
+		case actions.CHANGE_FILTER:
+			let aux = state.pokemons?.filter(poke => poke.Types?.includes(action.payload.type))
+			console.log(action.payload.type)
+			console.log(state.pokemons[0].Types)
 			return {
 				...state,
-				filter: action.payload,
-				pokemonsFiltered: state.pokemons.filter(pokemon => pokemon.types.includes(action.payload.type))
+				filter: {
+					...state.filter,
+					type: action.payload.type,
+				},
+				pokemonsFiltered: aux,
+				currentPage: 1
+			}
+		case actions.RESET_CARDS:
+			return {
+				...state,
+				pokemonsFiltered: state.pokemons,
+				pokemonsSorted: state.pokemons
+			}
+		case actions.RESET_POKEMONS:
+			return {
+				...state,
+				pokemons: []
+			}
+		case actions.LOADING:
+			return {
+				...state,
+				loading: true
 			}
 		
 		default:

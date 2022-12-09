@@ -1,27 +1,36 @@
 import axios from 'axios';
+import { imgTypes } from './imgTypes';
 
+// Get from API
 export const GET_ALL_POKEMONS = 'GET_ALL_POKEMONS';
-export const GET_POKEMONS_NAME = 'GET_POKEMONS_NAME';
-export const GET_POKEMON_ID = 'GET_POKEMON_ID';
-export const POKEMONS_NOT_FOUND = 'POKEMONS_NOT_FOUND';
+export const GET_POKEMON_BY_ID = 'GET_POKEMON_BY_ID'
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
 export const GET_ALL_IMG_TYPES = 'GET_ALL_IMG_TYPES';
+
+export const LOADING = 'LOADING'
+
+export const CLEAN_POKEMON_DETAIL = 'CLEAN_POKEMON_DETAIL'
+
+// Post in API
 export const CREATE_POKEMON = 'CREATE_POKEMON';
 export const SET_NEW_POKEMON = 'SET_NEW_POKEMON';
+export const RESET_POKEMONS = 'RESET_POKEMONS'
 
-// Filters actions
-export const FILTERS_RESET = 'FILTERS_RESET';
-export const CHANGE_FILTERS = 'CHANGE_FILTERS'
+// Filtering and Sorting
+export const RESET_SORT = 'RESET_SORT'
+export const CHANGE_SORT = 'CHANGE_SORT'
+export const RESET_FILTER = 'RESET_FILTER'
+export const CHANGE_FILTER = 'CHANGE_FILTER'
+export const FILTER_POKEMONS_BY_NAME = 'FILTER_POKEMONS_BY_NAME'
+export const RESET_CARDS = 'RESET_CARDS'
 
-// NEW
-export const NEW_RESET_ORDER = 'NEW_RESET_ORDER'
-export const NEW_CHANGE_ORDER = 'NEW_CHANGE_ORDER'
-export const NEW_CHANGE_PAGE = 'NEW_CHANGE_PAGE'
-export const NEW_FILTER_POKEMONS_BY_NAME = 'NEW_FILTER_POKEMONS_BY_NAME'
-export const NEW_GET_POKEMON_BY_ID = 'NEW_GET_POKEMON_BY_ID'
-export const NEW_POKEMONS_NOT_FOUND = 'NEW_POKEMONS_NOT_FOUND'
-export const NEW_CHANGE_FILTER = 'NEW_CHANGE_FILTER'
-export const NEW_RESET_FILTER = 'NEW_RESET_FILTER'
+// Paginated
+export const CHANGE_PAGE = 'CHANGE_PAGE'
+
+// Error Handler
+export const POKEMONS_NOT_FOUND = 'POKEMONS_NOT_FOUND'
+
+
 
 export function getAllPokemons() {
 	return async function (dispatch) {
@@ -34,31 +43,6 @@ export function getAllPokemons() {
 		}
 	};
 }
-
-export function getPokemonsName(name) {
-	return async function (dispatch) {
-		try {
-			const response = await axios.get(`http://localhost:3001/pokemons?name=${name}`);
-			dispatch({ type: GET_POKEMONS_NAME, payload: response.data });
-		} catch (error) {
-			dispatch({ type: POKEMONS_NOT_FOUND });
-		}
-	};
-}
-
-export function getPokemonId(id) {
-	return async function (dispatch) {
-		try {
-			const response = await axios.get(`http://localhost:3001/pokemons/${id}`);
-			dispatch({ type: GET_POKEMON_ID, payload: response.data });
-		} catch (error) {
-			dispatch({ type: POKEMONS_NOT_FOUND });
-		}
-	};
-}
-
-
-
 
 export function getAllTypes() {
 	return async function (dispatch) {
@@ -75,7 +59,10 @@ export function createPokemon(pokemon) {
 	return async function (dispatch) {
 		try {
 			const response = await axios.post(`http://localhost:3001/pokemons`, pokemon);
-			dispatch({ type: CREATE_POKEMON });
+			dispatch({ 
+				type: CREATE_POKEMON,
+				payload: response.data
+			});
 			return response;
 		} catch (error) {
 			console.log(error.response.data);
@@ -92,174 +79,84 @@ export function setNewPokemon() {
 export function getAllImgTypes() {
 	return async function (dispatch) {
 		// buscando pokemon svg logos en internet, encontré las siguientes imagenes:
-		const imgTypes = [
-			{
-				type: 'normal',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Pok%C3%A9mon_Normal_Type_Icon.svg',
-				color: '#919aa2',
-			},
-			{
-				type: 'fighting',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Pok%C3%A9mon_Fighting_Type_Icon.svg',
-				color: '#e0306a',
-			},
-			{
-				type: 'flying',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Pok%C3%A9mon_Flying_Type_Icon.svg',
-				color: '#89aae3',
-			},
-			{
-				type: 'poison',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Pok%C3%A9mon_Poison_Type_Icon.svg',
-				color: '#b567ce',
-			},
-			{
-				type: 'ground',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Pok%C3%A9mon_Ground_Type_Icon.svg',
-				color: '#e87236',
-			},
-			{
-				type: 'rock',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Pok%C3%A9mon_Rock_Type_Icon.svg',
-				color: '#c8b686',
-			},
-			{
-				type: 'bug',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Pok%C3%A9mon_Bug_Type_Icon.svg',
-				color: '#83c300',
-			},
-			{
-				type: 'ghost',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pok%C3%A9mon_Ghost_Type_Icon.svg',
-				color: '#4c6ab2',
-			},
-			{
-				type: 'steel',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Pok%C3%A9mon_Steel_Type_Icon.svg',
-				color: '#5a8ea2',
-			},
-			{
-				type: 'fire',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Pok%C3%A9mon_Fire_Type_Icon.svg',
-				color: '#ff9741',
-			},
-			{
-				type: 'water',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg',
-				color: '#3692dc',
-			},
-			{
-				type: 'grass',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Pok%C3%A9mon_Grass_Type_Icon.svg',
-				color: '#38bf4b',
-			},
-			{
-				type: 'electric',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Pok%C3%A9mon_Electric_Type_Icon.svg',
-				color: '#fbd100',
-			},
-			{
-				type: 'psychic',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Pok%C3%A9mon_Psychic_Type_Icon.svg',
-				color: '#ff6675',
-			},
-			{
-				type: 'ice',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Pok%C3%A9mon_Ice_Type_Icon.svg',
-				color: '#4cd1c0',
-			},
-			{
-				type: 'dragon',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg',
-				color: '#006fc9',
-			},
-			{
-				type: 'dark',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/0/09/Pok%C3%A9mon_Dark_Type_Icon.svg',
-				color: '#5b5466',
-			},
-			{
-				type: 'fairy',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Pok%C3%A9mon_Fairy_Type_Icon.svg',
-				color: '#fb89eb',
-			},
-			{
-				type: 'unknown',
-				color: '#c6c69b',
-			},
-			{
-				type: 'shadow',
-				color: '#3f3f3f',
-			},
-		];
 		dispatch({ type: GET_ALL_IMG_TYPES, payload: imgTypes });
 	};
 }
 
-export function filtersReset() {
+export function resetSort() {
 	return {
-		type: FILTERS_RESET,
+		type: RESET_SORT
 	}
 }
 
-export function changeFilters(payload) {
+export const changeSort = (payload) => {
 	return {
-		type: CHANGE_FILTERS,
-		payload
-	}
-}
-
-
-export function newResetOrder() {
-	return {
-		type: NEW_RESET_ORDER
-	}
-}
-
-export const newChangeOrder = (payload) => {
-	return {
-		type: NEW_CHANGE_ORDER,
+		type: CHANGE_SORT,
 		payload: payload
 	}
 }
 
-export const newChangePage = (payload) => {
+export const changePage = (payload) => {
 	return {
-		type: NEW_CHANGE_PAGE,
+		type: CHANGE_PAGE,
 		payload: payload
 	}
 }
 
-export const newFilterPokemonsByName = (payload) => {
+export const filterPokemonsByName = (payload) => {
 	return {
-		type: NEW_FILTER_POKEMONS_BY_NAME,
+		type: FILTER_POKEMONS_BY_NAME,
 		payload: payload
 	}
 }
 
-export function newGetPokemonById(id) {
+export function getPokemonById(id) {
 	return async function (dispatch) {
 		try {
 			const response = await axios.get(`http://localhost:3001/pokemons/${id}`);
 			dispatch({ 
-				type: NEW_GET_POKEMON_BY_ID, 
+				type: GET_POKEMON_BY_ID, 
 				payload: response.data 
 			});
 		} catch (error) {
-			dispatch({ type: NEW_POKEMONS_NOT_FOUND });
+			dispatch({ type: POKEMONS_NOT_FOUND });
 		}
 	};
 }
 
-export function newResetFilter() {
+export function resetFilter() {
 	return {
-		type: NEW_RESET_FILTER
+		type: RESET_FILTER
 	}
 }
 
-export function newChangeFilter(payload) {
+export function changeFilter(payload) {
 	return {
-		type: NEW_CHANGE_FILTER,
+		type: CHANGE_FILTER,
 		payload
+	}
+}
+
+export function resetCards() {
+	return {
+		type: RESET_CARDS,
+	}
+}
+
+export function resetPokemons() {
+	return {
+		type: RESET_POKEMONS
+	}
+}
+
+export function loading() {
+	return {
+		type: LOADING
+	}
+}
+
+export function cleanPokemonDetail() {
+	return {
+		type: CLEAN_POKEMON_DETAIL
 	}
 }

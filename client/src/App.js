@@ -5,22 +5,23 @@ import NavBar from './components/NavBar/NavBar';
 import Detail from './components/Detail/Detail';
 import Landing from './components/Landing/Landing'
 import Home from './components/Home/Home';
+import Paginated from './components/Paginated/Paginated';
 
 function App() {
 	return (
 		<div className='App'>
 
-			<Route path={'/newhome'} component={NavBar} />
+			<Route path={'/home'} component={NavBar} />
 
 			<Route exact path={'/'} component={Landing} />
 
-			<Route exact path={'/newhome'} component={Home} />
+			<Route exact path={'/home'} component={Home} />
 
-			<Route path={'/newcreatepoke'} component={NavBar} />
+			<Route path={'/createpoke'} component={NavBar} />
 
-			<Route exact path={'/newcreatepoke'} component={CreatePokemon} />
+			<Route exact path={'/createpoke'} component={CreatePokemon} />
 
-			<Route exact path={'/newhome/:id'} component={Detail} />
+			<Route exact path={'/home/:id'} component={Detail} />
 		</div>
 	);
 }

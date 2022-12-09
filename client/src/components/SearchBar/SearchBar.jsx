@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { newChangeOrder, newFilterPokemonsByName } from '../../redux/actions';
+import { changeSort, filterPokemonsByName, getAllPokemons, resetFilter } from '../../redux/actions';
 import './SearchBar.css'
 
 export default function SearchBar() {
@@ -10,14 +10,18 @@ export default function SearchBar() {
 
     const onHandleChange = (e) => {
         e.preventDefault()
-        console.log(e.target.value)
-        dispatch(newFilterPokemonsByName(e.target.value))
-        dispatch(newChangeOrder({
+
+        if (e.target.value.length === 0) return dispatch(resetFilter())
+
+        dispatch(filterPokemonsByName(e.target.value))
+        dispatch(changeSort({
             ...newOrder,
             ascName: true,
             descName: false
         }))
     }
+
+
 
     return (
 

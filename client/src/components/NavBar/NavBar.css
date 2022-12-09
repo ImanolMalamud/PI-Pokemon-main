@@ -32,7 +32,7 @@
     transform: translate(-50%, -50%);
 }
 
-.menu-bar {
+/* .menu-bar {
     background-color:rgb(202, 150, 198);
     position: absolute;
     display: flex;
@@ -41,31 +41,40 @@
     top: 50%;
     right: 100px;
     transform: translateY(-50%);
-    width: 200px;
+    width: 100px;
     height: 40px;
     border-radius: 10px;
-}
+} */
 
-.menu-bar h1 {
-    font-family: 'MyWebFont', sans-serif;
-    color: black;
-    font-size: 20px;
-}
 
-.menu-bar h1:hover {
-    font-family: 'MyWebFont', sans-serif;
-    color: hsl(200, 100%, 30%);
-    font-size: 21px;
-}
 
 
 
 .menu-bar {
     background-color: rgb(202, 150, 198);
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 30px;
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    width: 300px;
-    height: 40px;
+    width: 250px;
+    height: 30px;
+    border-radius: 10px;
 }
+
+.menu-bar h1 {
+    font-family: 'MyWebFont', sans-serif;
+    color: black;
+    font-size: 15px;
+    font-weight:800;
+}
+
+
+.menu-bar h1:hover {
+    font-family: 'MyWebFont', sans-serif;
+    color: hsl(200, 100%, 30%);
+}
+

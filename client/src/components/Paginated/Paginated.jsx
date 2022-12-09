@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { newChangePage } from '../../redux/actions'
+import { changePage } from '../../redux/actions'
 import './Paginated.css'
 
 export default function Paginated() {
@@ -8,10 +8,11 @@ export default function Paginated() {
     const dispatch = useDispatch()
 
     const pokemonsSorted = useSelector(state => state.pokemonsSorted)
-    const newPokemonsPerPage = useSelector(state => state.newPokemonsPerPage)
+    const pokemonsPerPage = useSelector(state => state.pokemonsPerPage)
+    const currentPage = useSelector(state => state.currentPage)
 
     // la cantidad de paginas
-    const amountOfPages = Math.ceil(pokemonsSorted.length / newPokemonsPerPage)
+    const amountOfPages = Math.ceil(pokemonsSorted.length / pokemonsPerPage)
 
     const numberButtons = []
 
@@ -20,18 +21,26 @@ export default function Paginated() {
     }
 
     const handleClick = (e) => {
-        console.log(e.target.value)
-        dispatch(newChangePage(e.target.value))
+        // setButtonColor('hsl(305, 33%, 69%, .8)')
+        // e.target.style.backgroundColor = buttonColor
+        dispatch(changePage(e.target.value))
     }
 
 
     return (
         <div className='paginated-container'>
+
             {numberButtons.map(button => {
+                if (button === currentPage) {
+                    return (
+                        <button onClick={handleClick} value={button}>{button}</button>
+                    )
+                }
                 return (
                     <button onClick={handleClick} value={button}>{button}</button>
                 )
             })}
         </div>
+
     )
 }

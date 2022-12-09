@@ -1,7 +1,19 @@
-.new-create-poke {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	appearance: textfield;
+} 
+
+.create-poke {
     /* background-image: url('../img/create-poke-3.webp'); */
     /* background-image: url('../img/create-poke-2.jpg');
     background-size: cover; */
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
     width: 100%;
     height: 500px;
 }
@@ -74,7 +86,7 @@
     box-shadow: 0 0 5px 2px hsla(270, 100%, 40%, 0.7);;
 }
 
-.new-create-poke .form-container form {
+.create-poke .form-container form {
     position: relative;
     left: 50%;
     top:50%;
@@ -101,4 +113,16 @@
 
 .button.create {
     background-color: green;
+}
+
+.types-added {
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    position: relative;
+    top: 50px;
+}
+
+.types-added img {
+    width: 50px;
 }

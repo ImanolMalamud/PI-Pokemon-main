@@ -11,7 +11,7 @@ function Landing(props) {
                         src='../img/home-background-paisaje.jpg'
                         alt=''
                     />
-                    <Link to='/newhome'>
+                    <Link to='/home'>
                         <button className='buttonGo'>Home</button>
                     </Link>
                 </div>

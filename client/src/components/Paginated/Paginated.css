@@ -1,16 +1,21 @@
 .paginated-container {
+    /* outline: 2px solid white; */
+    /* height: 40px; */
+    width: fit-content;
     margin: 20px 0 20px 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     column-gap: 10px;
+    z-index: 1;
 }
 
 .paginated-container button {
     font-size: 30px;
     width: 40px;
+    /* padding: 10px; */
 }
 
 .paginated-container button:hover {
-    background-color: hsl(200, 100%, 50%);
-    border-color: hsl(200, 100%, 50%);
+    background-color: #00aaff80;
+    border-color: hsl(200, 100%, 50%, .5);
 }
