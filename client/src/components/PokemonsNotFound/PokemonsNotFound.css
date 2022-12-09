@@ -1,0 +1,11 @@
+.not-found-container {
+    background-color: hsl(305, 33%, 40%);
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    text-justify: center;
+    font-size: 30px;
+    padding: 3px;
+    border-radius: 10px;
+}

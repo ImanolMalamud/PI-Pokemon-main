@@ -83,7 +83,7 @@ input[type='number'] {
 .buttons-container button {
     font-size: 20px;
     border-radius: 4px;
-    box-shadow: 0 0 5px 2px hsla(270, 100%, 40%, 0.7);;
+    box-shadow: 0 0 5px 2px hsla(270, 100%, 40%, 0.7);
 }
 
 .create-poke .form-container form {
@@ -99,7 +99,7 @@ input[type='number'] {
 
 .form-container form h2 {
     position: absolute;
-    color: hsla(270, 100%, 20%, 1);;
+    color: hsla(270, 100%, 20%, 1);
     left: 50%;
     transform: translateX(-50%);
     margin-top: 10px;
@@ -125,4 +125,15 @@ input[type='number'] {
 
 .types-added img {
     width: 50px;
+}
+
+.prop-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.prop-container span{
+    color: hsla(270, 100%, 30%);
+    font-weight: lighter;
+    font-size: smaller;
 }

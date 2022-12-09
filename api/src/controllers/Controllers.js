@@ -89,17 +89,14 @@ const getPokemonById = async (id) => {
 	const allPokemons = await getAllPokemons();
 	
 	// El id del params viene como string, entonces lo convierto en integer para comparar.
-	const findPokemon = allPokemons?.find((pokemon) => pokemon.id === parseInt(id));
+	const findPokemon = allPokemons?.find((pokemon) => pokemon.id == id);
 	// find me devuelve un objeto pokemon
-	console.log('find: ',findPokemon)
+	// console.log('find: ',findPokemon)
 
 	// // find vs filter
 	// const filterPokemon = allPokemons?.filter((pokemon) => pokemon.id === parseInt(id));
 	// // filter me devuelve un array con un objecto pokemon adentro
 	// console.log('filter: ', filterPokemon)
-
-	
-	
 
 	if (!findPokemon)
 		throw new Error(`El pokemon con id ${id} no fue encontrado`);

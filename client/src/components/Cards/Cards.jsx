@@ -5,6 +5,7 @@ import { changePage, filterPokemonsByName, getAllImgTypes, getAllPokemons, loadi
 import Card from '../Card/Card';
 import Loading from '../Loading/Loading'
 import { useState } from 'react';
+import PokemonsNotFound from '../PokemonsNotFound/PokemonsNotFound';
 
 export default function Cards() {
     const dispatch = useDispatch()
@@ -17,15 +18,8 @@ export default function Cards() {
     // const pokemonsPerPage = useSelector(state => state.pokemonsPerPage)
     const currentPokemons = useSelector(state => state.currentPokemons)
     const loadingState = useSelector(state => state.loading)
-    const imgTypes = useSelector(state => state.imgTypes)
+
     const pokemons = useSelector(state => state.imgTypes)
-
-
-    useEffect(() => {
-        dispatch(loading())
-        dispatch(getAllPokemons())
-        imgTypes.length === 0 && dispatch(getAllImgTypes())
-    }, [dispatch])
 
     return (<>
         {loadingState
@@ -33,11 +27,16 @@ export default function Cards() {
             <Loading />
             :
             <div className='cards-container'>
-                {currentPokemons?.map(pokemon => {
-                    return (
-                        <Card pokemon={pokemon} />
-                    )
-                })}
+                {currentPokemons[0]
+                    ?
+                    currentPokemons.map(pokemon => {
+                        return (
+                            <Card pokemon={pokemon} />
+                        )
+                    })
+                    :
+                    <PokemonsNotFound />
+                }
             </div>
         }
     </>

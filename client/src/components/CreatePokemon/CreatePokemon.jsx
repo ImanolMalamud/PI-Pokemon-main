@@ -105,7 +105,7 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {/* <span className='msg'>Valid name</span> */}
+                                {errors.name && <span className='msg'>{errors.name}</span>}
                             </div>
 
                             {/* HP */}
@@ -120,6 +120,7 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
+                                {errors.hp && <span className='msg'>{errors.hp}</span>}
                             </div>
 
                             {/* attack */}
@@ -134,6 +135,7 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
+                                {errors.attack && <span className='msg'>{errors.attack}</span>}
                             </div>
 
                             {/* defense */}
@@ -148,6 +150,7 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
+                                {errors.defense && <span className='msg'>{errors.defense}</span>}
                             </div>
 
                             {/* speed */}
@@ -162,6 +165,7 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
+                                {errors.speed && <span className='msg'>{errors.speed}</span>}
                             </div>
 
                             {/* height */}
@@ -176,6 +180,7 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
+                                {errors.height && <span className='msg'>{errors.height}</span>}
                             </div>
 
                             {/* weight */}
@@ -190,6 +195,7 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
+                                {errors.weight && <span className='msg'>{errors.weight}</span>}
                             </div>
 
                             {/* img */}
@@ -221,6 +227,7 @@ export default function CreatePokemon({ history }) {
                                         )
                                     })}
                                 </select>
+                                {errors.type && <span className='msg'>{errors.type}</span>}
                             </div>
 
                             <div className="types-added">
@@ -287,7 +294,7 @@ const validate = (input, pokemons) => {
 
     //*Hp
     if (!input.hp) {
-        errors.hp = 'Hp is required';
+        errors.hp = 'Hp is required. Only Positive numbers.';
     } else if (input.hp.length > 4) {
         errors.hp = 'Max four characters';
     } else if (input.hp < 0) {
@@ -296,7 +303,7 @@ const validate = (input, pokemons) => {
 
     //*Attack
     if (!input.attack) {
-        errors.attack = 'Attack is required';
+        errors.attack = 'Attack is required. Only Positive numbers.';
     } else if (input.attack.length > 4) {
         errors.attack = 'Max four characters';
     } else if (input.attack < 0) {
@@ -305,7 +312,7 @@ const validate = (input, pokemons) => {
 
     //*Defense
     if (!input.defense) {
-        errors.defense = 'Defense is required';
+        errors.defense = 'Defense is required. Only Positive numbers.';
     } else if (input.defense.length > 4) {
         errors.defense = 'Max four characters';
     } else if (input.defense < 0) {
@@ -314,7 +321,7 @@ const validate = (input, pokemons) => {
 
     //*Speed
     if (!input.speed) {
-        errors.speed = 'Speed is required';
+        errors.speed = 'Speed is required. Only Positive numbers.';
     } else if (input.speed.length > 4) {
         errors.speed = 'Max four characters';
     } else if (input.speed < 0) {
@@ -323,7 +330,7 @@ const validate = (input, pokemons) => {
 
     //*Height
     if (!input.height) {
-        errors.height = 'Height is required';
+        errors.height = 'Height is required. Only Positive numbers.';
     } else if (input.height.length > 4) {
         errors.height = 'Max four characters';
     } else if (input.height < 0) {
@@ -332,7 +339,7 @@ const validate = (input, pokemons) => {
 
     //*Weight
     if (!input.weight) {
-        errors.weight = 'weight is required';
+        errors.weight = 'Weight is required. Only Positive numbers.';
     } else if (input.weight.length > 4) {
         errors.weight = 'Max four characters';
     } else if (input.weight < 0) {

@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 	// Observar que el id del params viene como string.
 	const { id } = req.params;
+	console.log(id)
 	try {
 		const pokeInfo = await controlers.getPokemonById(id);
 		res.json(pokeInfo);

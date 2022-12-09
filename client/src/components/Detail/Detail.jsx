@@ -13,24 +13,26 @@ export default function Detail() {
 
     useEffect(() => {
         dispatch(getPokemonById(id))
-
+        // console.log(pokemonDetail)
         return (dispatch(cleanPokemonDetail()))
     }, [dispatch])
 
     return (
         <div className='detail-container'>
+            {console.log(pokemonDetail)}
             {pokemonDetail
-                ? <>
+                ?
+                <>
                     <div className='name-container'>{pokemonDetail.name}</div>
                     <div className='detail-data'>
                         <div className='pokemon-properties'>
                             <ul>
                                 <li>
                                     Types: {pokemonDetail?.Types?.map(type => {
+                                        if (type.name) return (<div>{type.name}</div>)
                                         return (<div>{type}</div>)
                                     })}
                                 </li>
-
                                 <li>Attack: <div>{pokemonDetail.attack}</div></li>
                                 <li>Defense: <div>{pokemonDetail.defense}</div></li>
                                 <li>Speed: <div>{pokemonDetail.speed}</div></li>
