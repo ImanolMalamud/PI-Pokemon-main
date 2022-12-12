@@ -26,7 +26,9 @@ conn.sync({ force: true }).then(() => {
 	// llamamos los types de la api y los guardamos en la base de datos
 	typesInDb(),
 
-	server.listen(3001, () => {
-		console.log(`%s listening at 3001`); // eslint-disable-line no-console
+	// Creamos una variable de entorno llamada PORT (le damos valor 3001 localmente).
+	// Heroku despues va a usar un valor propio internamente (distinto) para esa variable PORT.
+	server.listen(process.env.PORT, () => {
+		console.log(`%s listening at ${port}`); // eslint-disable-line no-console
 	});
 });
