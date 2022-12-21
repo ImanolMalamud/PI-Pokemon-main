@@ -10,7 +10,9 @@ import store from './redux/store/index';
 import dotenv from 'dotenv';
 dotenv.config();
 
-axios.defaults.baseURL = process.env.REACT_APP_DEPLOY || 'http://localhost:3001';
+const { PORT, REACT_APP_DEPLOY } = process.env;
+
+axios.defaults.baseURL = REACT_APP_DEPLOY || `http://localhost:${PORT}`;
 
 ReactDOM.render(
 	<Provider store={store}>
