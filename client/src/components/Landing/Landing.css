@@ -7,51 +7,51 @@
 	--white: rgb(250, 250, 250);
 	--black: rgb(30, 30, 30);
 	--gray: #dfdfdf;
-}
-
-.mainContainer {
+  }
+  
+  .mainContainer {
 	top: 0;
-	background-image: url('../../img/create-poke-2.jpg');
+	background-image: url("../../img/create-poke-2.jpg");
 	background-size: cover;
-	background-repeat: no-repeat;
-	background-position-y: -50px;
+	background-position-x: center;
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.containerInfo {
+  }
+  
+  .containerInfo {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 400px;
-	width: 600px;
-}
-
-.containerInfo img {
+	height: 100%;
+	width: 100%;
+  }
+  
+  .containerInfo img {
 	max-width: 500px;
-}
-
-.buttonGo {
+  }
+  
+  .buttonGo {
 	background-color: hsl(0, 0%, 16%, 0.8);
 	color: white;
 	font-size: 24px;
-    font-weight: bold;
+	font-weight: bold;
 	border: none;
 	border-radius: 8px;
 	height: 60px;
-	width: 350px;
+	width: fit-content;
+	padding: 0 20px 0 20px;
 	transition: 0.3s;
 	box-shadow: 0 0 5px 1px white;
 	cursor: pointer;
-}
-
-.buttonGo:hover {
-    background-color: hsl(0, 0%, 16%);
-    color: rgb(202, 150, 198);
+  }
+  
+  .buttonGo:hover {
+	background-color: hsl(0, 0%, 16%);
+	color: rgb(202, 150, 198);
 	box-shadow: 0 0 5px 6px white;
-}
+  }
