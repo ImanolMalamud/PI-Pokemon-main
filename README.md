@@ -12,7 +12,7 @@ Para los estilos: CSS puro, CSS Modules y Styled Components.
 Tanto en la carpeta api como en client:
 
 - **npm install**
-- **npm build**
+- **npm start**
 
 # Environment
 
@@ -64,7 +64,7 @@ He creado una app en la cual se pueden ver los distintos Pokemon provistos por l
 
 **NOTA**: Para las funcionalidades de filtrado y ordenamiento NO se han utilizado los endpoints de la API externa que ya devuelven los resultados filtrados u ordenados, sino que la lógica necesaria se ha realizado en este proyecto.
 
-### Únicos Endpoints/Flags que se han utilizado
+### Únicos Endpoints/Flags que se han utilizado de la api (https://pokeapi.co/)
 
 - GET <https://pokeapi.co/api/v2/pokemon>
 - GET <https://pokeapi.co/api/v2/pokemon/{id}>
