@@ -24,6 +24,7 @@ DB_PASSWORD=passwordDePostgres
 DB_HOST=localhost
 DB_NAME=pokemon (crear esta base de datos con postgres)
 DB_PORT=puerto de base datos
+DB_DEPLOY=link a base de datos deployada (opcional)
 
 Ej:
   DB_USER=postgres
@@ -31,6 +32,7 @@ Ej:
   DB_HOST=localhost
   DB_NAME=pokemon
   DB_PORT=5432
+  DB_DEPLOY=postgresql://postgres:MrJv16x0b2ZuEaaxc3NB@containers-us-west-153.railway.app:7598/railway
 ```
 
 **IMPORTANTE:** Actualmente las versiónes necesarias son:
