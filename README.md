@@ -1,4 +1,4 @@
-#### Tecnologías utilizadas
+# Tecnologías utilizadas
 
 - [ ] React
 - [ ] Redux
@@ -10,9 +10,9 @@ Para los estilos: CSS puro, CSS Modules y Styled Components.
 # Getting Started
 
 Tanto en la carpeta api como en client:
-_npm install_
 
-_npm build_
+- **npm install**
+- **npm build**
 
 # Environment
 
@@ -32,13 +32,6 @@ Ej:
   DB_NAME=pokemon
   DB_PORT=5432
 ```
-
-## Comenzando
-
-1.  Forkear el repositorio para tener una copia del mismo en sus cuentas
-2.  Clonar el repositorio en sus computadoras para comenzar a trabajar
-
-Tendrán un `boilerplate` con la estructura general tanto del servidor como de cliente.
 
 **IMPORTANTE:** Actualmente las versiónes necesarias son:
 
