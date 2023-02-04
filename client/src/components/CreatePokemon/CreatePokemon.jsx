@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPokemon, getAllImgTypes, getAllPokemons, getAllTypes, loading, resetFilter, resetPokemons, resetSort } from '../../redux/actions';
+import { createPokemon, getAllImgTypes, getAllPokemons, getAllTypes, resetFilter, resetSort } from '../../redux/actions';
+import NavBar from '../NavBar/NavBar';
 import './CreatePokemon.css'
 
 export default function CreatePokemon({ history }) {
@@ -80,14 +81,13 @@ export default function CreatePokemon({ history }) {
         imgTypes.length === 0 && dispatch(getAllImgTypes())
 
         return () => {
-            dispatch(resetSort())
-            dispatch(resetFilter())
             dispatch(getAllPokemons())
         }
     }, [])
 
     return (
         <div className='create-poke'>
+            <NavBar />
             <div className="form-container">
                 <form className='form' onSubmit={handleSubmit}>
                     <h2>Create Pokemon</h2>

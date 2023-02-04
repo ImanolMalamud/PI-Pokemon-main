@@ -6,40 +6,51 @@ import Card from '../Card/Card';
 import Loading from '../Loading/Loading'
 import { useState } from 'react';
 import PokemonsNotFound from '../PokemonsNotFound/PokemonsNotFound';
+import { filterbyType } from '../../hooks/filterAndSort/filterbyType';
+import { paginatePokemons } from '../../hooks/paginatePokemons';
 
 export default function Cards() {
     const dispatch = useDispatch()
 
-    // Cada vez que cambie sort, se renderiza Card nuevamente
-    // Si no traigo el state sort, el ordenamiento no se va a ver reflejado en Card.
-    const sort = useSelector(state => state.sort) // NO BORRAR!!
-    // const currentPage = useSelector(state => state.currentPage)
-    const pokemonsSorted = useSelector(state => state.pokemonsSorted)
-    // const pokemonsPerPage = useSelector(state => state.pokemonsPerPage)
-    const currentPokemons = useSelector(state => state.currentPokemons)
-    const loadingState = useSelector(state => state.loading)
+    const pokemons = useSelector(state => state.pokemons)
 
-    const pokemons = useSelector(state => state.imgTypes)
+    // Estados para Filtros y Ordenamiento
+    const typeFilter = useSelector(state => state.typeFilter)
 
-    return (<>
-        {loadingState
-            ?
-            <Loading />
-            :
-            <div className='cards-container'>
-                {currentPokemons[0]
-                    ?
-                    currentPokemons.map(pokemon => {
-                        return (
-                            <Card pokemon={pokemon} />
-                        )
-                    })
-                    :
-                    <PokemonsNotFound />
-                }
-            </div>
-        }
-    </>
+    // Estados para el Paginado
+    const currentPage = useSelector(state => state.typeFilter)
+    const pokemonsPerPage = useSelector(state => state.pokemonsPerPage)
+
+    // Variable auxiliar para filtrar, ordenar y paginar los items
+    let filteredAndSorted = pokemons;
+
+    // funcion para volver a la pagina inicial (se la aplicará luego de cada filtrado u ordenado)
+    const resetCurrentPage = () => dispatch(changePage(1))
+
+    // Filtrado por tipos
+    // filteredAndSorted = typeFilter
+    //     ?
+    //     filterbyType(filteredAndSorted, typeFilter, resetCurrentPage)
+    //     :
+    //     filteredAndSorted
+
+
+    let currentPokemons = paginatePokemons(filteredAndSorted, currentPage, pokemonsPerPage)
+
+
+    return (
+        <div className='cards-container'>
+            {pokemons[0]
+                ?
+                pokemons.map(pokemon => {
+                    return (
+                        <Card pokemon={pokemon} />
+                    )
+                })
+                :
+                <PokemonsNotFound />
+            }
+        </div>
 
 
     )

@@ -1,37 +1,40 @@
 import './Home.css'
 import React from 'react';
-import Sort from '../Sort/Sort';
 import Paginated from '../Paginated/Paginated';
-import SearchBar from '../SearchBar/SearchBar';
 import Cards from '../Cards/Cards';
 import { useEffect } from 'react';
-import { getAllImgTypes, getAllPokemons, loading, resetPokemons } from '../../redux/actions';
+import { getAllImgTypes, getAllPokemons, setLoading } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import NavBar from '../NavBar/NavBar';
 
 export default function Home() {
     const dispatch = useDispatch()
 
     const imgTypes = useSelector(state => state.imgTypes)
+    const loading = useSelector(state => state.loading)
 
     useEffect(() => {
-        dispatch(loading())
+        dispatch(setLoading(true))
         dispatch(getAllPokemons())
+
         imgTypes.length === 0 && dispatch(getAllImgTypes())
     }, [dispatch])
 
-    const pokemons = useSelector(state => state.pokemons)
 
     return (
         <div className='home-container'>
-            <div className="search-filter-sort">
-                <SearchBar />
-                <Sort />
-            </div>
+            <NavBar />
+            {/* <TypeFilter /> */}
 
-            <Paginated />
+            {/* <Paginated /> */}
 
-
-            <Cards />
+            {
+                loading
+                    ?
+                    <h1 style={{ color: "white" }}>loading...</h1>
+                    :
+                    <Cards />
+            }
 
 
 

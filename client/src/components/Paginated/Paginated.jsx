@@ -7,18 +7,11 @@ export default function Paginated() {
 
     const dispatch = useDispatch()
 
-    const pokemonsSorted = useSelector(state => state.pokemonsSorted)
-    const pokemonsPerPage = useSelector(state => state.pokemonsPerPage)
+
     const currentPage = useSelector(state => state.currentPage)
+    const paginatedNumbers = useSelector(state => state.paginatedNumbers)
 
-    // la cantidad de paginas
-    const amountOfPages = Math.ceil(pokemonsSorted.length / pokemonsPerPage)
 
-    const numberButtons = []
-
-    for (let i = 1; i <= amountOfPages; i++) {
-        numberButtons.push(i)
-    }
 
     const handleClick = (e) => {
         // setButtonColor('hsl(305, 33%, 69%, .8)')
@@ -30,7 +23,7 @@ export default function Paginated() {
     return (
         <div className='paginated-container'>
 
-            {numberButtons.map(button => {
+            {paginatedNumbers.map(button => {
                 if (button === currentPage) {
                     return (
                         <button onClick={handleClick} value={button}>{button}</button>
