@@ -25,6 +25,7 @@ export const FILTER_POKEMONS_BY_NAME = "FILTER_POKEMONS_BY_NAME"
 export const RESET_CARDS = "RESET_CARDS"
 
 export const SET_FILTER_BY_TYPE = "SET_FILTER_BY_TYPE"
+export const SET_FILTER_BY_NAME = "SET_FILTER_BY_NAME"
 
 // Paginated
 export const CHANGE_PAGE = "CHANGE_PAGE"
@@ -133,6 +134,13 @@ export function cleanPokemonDetail() {
 export const setFilterByType = payload => {
   return {
     type: SET_FILTER_BY_TYPE,
+    payload,
+  }
+}
+
+export const setFilterByName = payload => {
+  return {
+    type: SET_FILTER_BY_NAME,
     payload,
   }
 }

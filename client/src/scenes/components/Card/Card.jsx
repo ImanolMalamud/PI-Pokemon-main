@@ -1,25 +1,11 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllImgTypes, resetCards } from '../../redux/actions'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import './Card.css'
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 
 export default function Card({ pokemon }) {
-    // const dispatch = useDispatch()
-
-    const [cleanCard, setCleanCard] = useState(false)
 
     const allImgTypes = useSelector(state => state.imgTypes)
-
-
-
-    useEffect(() => {
-        // dispatch(getAllImgTypes())
-        setCleanCard(false)
-
-        return () => { setCleanCard(true) }
-    }, [])
 
     return (<>
         {

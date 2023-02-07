@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
 
-  background-image: url("../../img/create-poke-4.webp");
+  background-image: url("../../../img/create-poke-4.webp");
   background-size: cover;
   background-attachment: fixed;
 }

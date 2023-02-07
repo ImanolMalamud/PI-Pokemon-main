@@ -1,6 +1,7 @@
 @font-face {
   font-family: "MyWebFont";
-  src: url("../../Fonts/new-poke-fonts-2/Pokemon Hollow.ttf") format("truetype");
+  src: url("../../../Fonts/new-poke-fonts-2/Pokemon Hollow.ttf")
+    format("truetype");
 }
 
 .navbar-container {

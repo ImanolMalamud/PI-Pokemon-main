@@ -1,7 +1,14 @@
-export const paginatePokemons = (items, currentPage, itemsPerPage) => {
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentPokemons = items.slice(indexOfFirstItem, indexOfLastItem)
+export const paginatePokemons = (
+  filteredAndSorted,
+  currentPage,
+  pokemonsPerPage
+) => {
+  const indexOfLastItem = currentPage * pokemonsPerPage
+  const indexOfFirstItem = indexOfLastItem - pokemonsPerPage
+  const currentPokemons = filteredAndSorted.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  )
 
   return currentPokemons
 }

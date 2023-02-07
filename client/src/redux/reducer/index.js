@@ -4,7 +4,10 @@ const initialState = {
   pokemons: [],
   types: [],
   imgTypes: [],
-  typeFilter: "",
+  filters: {
+    typeFilter: "",
+    nameFilter: "",
+  },
   currentPage: 1,
   pokemonsPerPage: 12,
   paginatedNumbers: [],
@@ -36,7 +39,19 @@ const reducer = (state = initialState, action) => {
     case actions.SET_FILTER_BY_TYPE:
       return {
         ...state,
-        typeFilter: action.payload,
+        filters: {
+          ...state.filters,
+          typeFilter: action.payload,
+        },
+      }
+
+    case actions.SET_FILTER_BY_NAME:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          nameFilter: action.payload,
+        },
       }
 
     case actions.CREATE_POKEMON:
@@ -73,6 +88,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: action.payload,
+      }
+    case actions.SET_PAGINATED_NUMBERS:
+      return {
+        ...state,
+        paginatedNumbers: action.payload,
       }
 
     default:

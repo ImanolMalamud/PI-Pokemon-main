@@ -1,11 +1,13 @@
 import './Home.css'
 import React from 'react';
-import Paginated from '../Paginated/Paginated';
-import Cards from '../Cards/Cards';
 import { useEffect } from 'react';
-import { getAllImgTypes, getAllPokemons, setLoading } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import NavBar from '../NavBar/NavBar';
+import NavBar from '../../global/NavBar/NavBar';
+import Paginated from '../../components/Paginated/Paginated';
+import Cards from '../../components/Cards/Cards';
+import SearchBar from '../../components/SearchBar/SearchBar'
+import TypeFilter from '../../components/TypeFilter/TypeFilter'
+import { getAllImgTypes, getAllPokemons, setLoading } from '../../../redux/actions';
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -24,9 +26,9 @@ export default function Home() {
     return (
         <div className='home-container'>
             <NavBar />
-            {/* <TypeFilter /> */}
-
-            {/* <Paginated /> */}
+            <SearchBar />
+            <TypeFilter />
+            <Paginated />
 
             {
                 loading

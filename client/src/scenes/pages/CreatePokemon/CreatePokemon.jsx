@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPokemon, getAllImgTypes, getAllPokemons, getAllTypes, resetFilter, resetSort } from '../../redux/actions';
-import NavBar from '../NavBar/NavBar';
+import * as actions from '../../../redux/actions'
+import NavBar from '../../global/NavBar/NavBar';
 import './CreatePokemon.css'
 
 export default function CreatePokemon({ history }) {
@@ -70,18 +70,18 @@ export default function CreatePokemon({ history }) {
     const handleSubmit = (e) => {
         console.log(newPokemon)
         e.preventDefault()
-        dispatch(createPokemon(newPokemon));
+        dispatch(actions.createPokemon(newPokemon));
         alert(`Pokemon ${newPokemon.name} created successfully`)
 
         history.push('/home')
     }
 
     useEffect(() => {
-        types.length === 0 && dispatch(getAllTypes())
-        imgTypes.length === 0 && dispatch(getAllImgTypes())
+        types.length === 0 && dispatch(actions.getAllTypes())
+        imgTypes.length === 0 && dispatch(actions.getAllImgTypes())
 
         return () => {
-            dispatch(getAllPokemons())
+            dispatch(actions.getAllPokemons())
         }
     }, [])
 

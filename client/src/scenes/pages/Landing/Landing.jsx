@@ -8,7 +8,7 @@ function Landing(props) {
             <section className='mainContainer'>
                 <div className='containerInfo'>
                     <img
-                        src='../img/home-background-paisaje.jpg'
+                        src='../../../img/home-background-paisaje.jpg'
                         alt=''
                     />
                     <Link to='/home'>
