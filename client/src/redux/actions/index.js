@@ -6,10 +6,7 @@ export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS"
 export const GET_POKEMON_BY_ID = "GET_POKEMON_BY_ID"
 export const GET_ALL_TYPES = "GET_ALL_TYPES"
 export const GET_ALL_IMG_TYPES = "GET_ALL_IMG_TYPES"
-
 export const LOADING = "LOADING"
-
-export const CLEAN_POKEMON_DETAIL = "CLEAN_POKEMON_DETAIL"
 
 // Post in API
 export const CREATE_POKEMON = "CREATE_POKEMON"
@@ -17,13 +14,6 @@ export const SET_NEW_POKEMON = "SET_NEW_POKEMON"
 export const RESET_POKEMONS = "RESET_POKEMONS"
 
 // Filtering and Sorting
-export const RESET_SORT = "RESET_SORT"
-export const CHANGE_SORT = "CHANGE_SORT"
-export const RESET_FILTER = "RESET_FILTER"
-export const CHANGE_FILTER = "CHANGE_FILTER"
-export const FILTER_POKEMONS_BY_NAME = "FILTER_POKEMONS_BY_NAME"
-export const RESET_CARDS = "RESET_CARDS"
-
 export const SET_FILTER_BY_TYPE = "SET_FILTER_BY_TYPE"
 export const SET_FILTER_BY_NAME = "SET_FILTER_BY_NAME"
 
@@ -33,6 +23,8 @@ export const SET_PAGINATED_NUMBERS = "SET_PAGINATED_NUMBERS"
 
 // Error Handler
 export const POKEMONS_NOT_FOUND = "POKEMONS_NOT_FOUND"
+
+export const CLEAN_POKEMON_DETAIL = "CLEAN_POKEMON_DETAIL"
 
 export function getAllPokemons() {
   return async function (dispatch) {
@@ -103,18 +95,6 @@ export function getPokemonById(id) {
     } catch (error) {
       dispatch({ type: POKEMONS_NOT_FOUND })
     }
-  }
-}
-
-export function resetCards() {
-  return {
-    type: RESET_CARDS,
-  }
-}
-
-export function resetPokemons() {
-  return {
-    type: RESET_POKEMONS,
   }
 }
 
