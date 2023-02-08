@@ -9,7 +9,7 @@
   display: flex;
   min-width: fit-content;
   justify-content: space-between;
-  width: 100%;
+  width: 100vw;
   height: 50px;
   margin-bottom: 15px;
 }
@@ -33,7 +33,7 @@
 }
 
 .menu-bar {
-  background-color: hsl(305, 33%, 69%);
+  background-color: hsl(305, 33%, 69%, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;

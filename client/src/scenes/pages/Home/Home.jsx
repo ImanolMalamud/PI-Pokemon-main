@@ -26,9 +26,12 @@ export default function Home() {
     return (
         <div className='home-container'>
             <NavBar />
-            <SearchBar />
-            <TypeFilter />
+            <div className="filters-container">
+                <SearchBar />
+                <TypeFilter />
+            </div>
             <Paginated />
+
 
             {
                 loading

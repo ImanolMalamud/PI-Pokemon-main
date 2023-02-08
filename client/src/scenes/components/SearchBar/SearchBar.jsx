@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setFilterByName } from '../../../redux/actions'
+import './SearchBar.css'
 
 export default function SearchBar() {
     const dispatch = useDispatch()
@@ -10,9 +11,8 @@ export default function SearchBar() {
     }
 
     return (
-        <div>
+        <div className='searchbar-container'>
             <input
-                style={{ background: "white", minWidth: "150px", width: "50%", height: "20px" }}
                 type="search"
                 placeholder="Buscar"
                 aria-label="Search"
