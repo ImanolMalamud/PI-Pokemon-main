@@ -4,9 +4,10 @@ const initialState = {
   pokemons: [],
   types: [],
   imgTypes: [],
-  filters: {
+  filtersAndSort: {
     typeFilter: "",
     nameFilter: "",
+    attackSort: "",
   },
   currentPage: 1,
   pokemonsPerPage: 12,
@@ -39,7 +40,7 @@ const reducer = (state = initialState, action) => {
     case actions.SET_FILTER_BY_TYPE:
       return {
         ...state,
-        filters: {
+        filtersAndSort: {
           ...state.filters,
           typeFilter: action.payload,
         },
@@ -48,9 +49,18 @@ const reducer = (state = initialState, action) => {
     case actions.SET_FILTER_BY_NAME:
       return {
         ...state,
-        filters: {
+        filtersAndSort: {
           ...state.filters,
           nameFilter: action.payload,
+        },
+      }
+
+    case actions.SET_SORT_BY_ATTACK:
+      return {
+        ...state,
+        filtersAndSort: {
+          ...state.filters,
+          attackSort: action.payload,
         },
       }
 

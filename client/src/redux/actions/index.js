@@ -16,6 +16,7 @@ export const RESET_POKEMONS = "RESET_POKEMONS"
 // Filtering and Sorting
 export const SET_FILTER_BY_TYPE = "SET_FILTER_BY_TYPE"
 export const SET_FILTER_BY_NAME = "SET_FILTER_BY_NAME"
+export const SET_SORT_BY_ATTACK = "SET_SORT_BY_ATTACK"
 
 // Paginated
 export const CHANGE_PAGE = "CHANGE_PAGE"
@@ -121,6 +122,13 @@ export const setFilterByType = payload => {
 export const setFilterByName = payload => {
   return {
     type: SET_FILTER_BY_NAME,
+    payload,
+  }
+}
+
+export const setSortByAttack = payload => {
+  return {
+    type: SET_SORT_BY_ATTACK,
     payload,
   }
 }

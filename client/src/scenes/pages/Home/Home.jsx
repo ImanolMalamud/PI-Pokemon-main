@@ -8,6 +8,7 @@ import Cards from '../../components/Cards/Cards';
 import SearchBar from '../../components/SearchBar/SearchBar'
 import TypeFilter from '../../components/TypeFilter/TypeFilter'
 import { getAllImgTypes, getAllPokemons, setLoading } from '../../../redux/actions';
+import Sorting from '../../components/Sorting/Sorting';
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -25,10 +26,12 @@ export default function Home() {
 
     return (
         <div className='home-container'>
+
             <NavBar />
             <div className="filters-container">
                 <SearchBar />
                 <TypeFilter />
+                <Sorting />
             </div>
             <Paginated />
 

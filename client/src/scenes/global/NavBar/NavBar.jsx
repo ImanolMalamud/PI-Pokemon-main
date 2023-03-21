@@ -24,6 +24,9 @@ export default function NavBar() {
                 <Link to='/createpoke' style={{ textDecoration: 'none' }}>
                     <h1>Create Pokemon</h1>
                 </Link>
+                <Link to='/createpoke' style={{ textDecoration: 'none' }}>
+                    <h1>Contact</h1>
+                </Link>
             </div>
 
             <button

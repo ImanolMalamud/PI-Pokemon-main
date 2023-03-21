@@ -5,6 +5,7 @@ import * as actions from '../../../redux/actions'
 import NavBar from '../../global/NavBar/NavBar';
 import './CreatePokemon.css'
 
+
 export default function CreatePokemon({ history }) {
     const [newPokemon, setNewPokemon] = useState({
         name: '',
@@ -29,7 +30,7 @@ export default function CreatePokemon({ history }) {
 
     const handleChange = (e) => {
         setNewPokemon({ ...newPokemon, [e.target.name]: e.target.value })
-        setErrors(validate(
+        setErrors(validatePokemon(
             {
                 ...newPokemon,
                 [e.target.name]: e.target.value
@@ -52,7 +53,7 @@ export default function CreatePokemon({ history }) {
             });
 
             setErrors(
-                validate(
+                validatePokemon(
                     {
                         ...newPokemon,
                         type: [...newPokemon.type, addType],
@@ -88,11 +89,14 @@ export default function CreatePokemon({ history }) {
     return (
         <div className='create-poke'>
             <NavBar />
+            <div className='create-poke-title'> Create Pokemon</div>
             <div className="form-container">
                 <form className='form' onSubmit={handleSubmit}>
-                    <h2>Create Pokemon</h2>
+
                     <div className="inputs-container">
+
                         <div className="all-props-container">
+
                             {/* Name */}
                             <div className="prop-container">
                                 <input
@@ -105,7 +109,12 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {errors.name && <span className='msg'>{errors.name}</span>}
+                                {errors.name
+                                    ?
+                                    <span>{errors.name}</span>
+                                    :
+                                    newPokemon.name && <span>Name</span>
+                                }
                             </div>
 
                             {/* HP */}
@@ -120,7 +129,12 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {errors.hp && <span className='msg'>{errors.hp}</span>}
+                                {errors.hp
+                                    ?
+                                    <span>{errors.hp}</span>
+                                    :
+                                    newPokemon.hp && <span>HP</span>
+                                }
                             </div>
 
                             {/* attack */}
@@ -135,7 +149,12 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {errors.attack && <span className='msg'>{errors.attack}</span>}
+                                {errors.attack
+                                    ?
+                                    <span>{errors.attack}</span>
+                                    :
+                                    newPokemon.attack && <span>attack</span>
+                                }
                             </div>
 
                             {/* defense */}
@@ -150,7 +169,12 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {errors.defense && <span className='msg'>{errors.defense}</span>}
+                                {errors.defense
+                                    ?
+                                    <span>{errors.defense}</span>
+                                    :
+                                    newPokemon.defense && <span>defense</span>
+                                }
                             </div>
 
                             {/* speed */}
@@ -165,7 +189,12 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {errors.speed && <span className='msg'>{errors.speed}</span>}
+                                {errors.speed
+                                    ?
+                                    <span>{errors.speed}</span>
+                                    :
+                                    newPokemon.speed && <span>speed</span>
+                                }
                             </div>
 
                             {/* height */}
@@ -180,7 +209,12 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {errors.height && <span className='msg'>{errors.height}</span>}
+                                {errors.height
+                                    ?
+                                    <span>{errors.height}</span>
+                                    :
+                                    newPokemon.height && <span>height</span>
+                                }
                             </div>
 
                             {/* weight */}
@@ -195,7 +229,12 @@ export default function CreatePokemon({ history }) {
                                     autoComplete='off'
                                     required
                                 />
-                                {errors.weight && <span className='msg'>{errors.weight}</span>}
+                                {errors.weight
+                                    ?
+                                    <span>{errors.weight}</span>
+                                    :
+                                    newPokemon.weight && <span>weight</span>
+                                }
                             </div>
 
                             {/* img */}
@@ -209,9 +248,15 @@ export default function CreatePokemon({ history }) {
                                     id='img'
                                     autoComplete='off'
                                 />
+                                {errors.img
+                                    ?
+                                    <span>{errors.img}</span>
+                                    :
+                                    newPokemon.img && <span>img</span>
+                                }
                             </div>
-                        </div>
-                        <div className="types-and-buttons">
+
+
 
                             {/* type */}
                             <div className="prop-container">
@@ -230,29 +275,24 @@ export default function CreatePokemon({ history }) {
                                 {errors.type && <span className='msg'>{errors.type}</span>}
                             </div>
 
+
+                        </div>
+                        <div className="img-types-and-buttons">
+
+                            {newPokemon.img && (
+                                <div className='img-create-poke'>
+                                    <img src={newPokemon.img} alt="pokemon image not found" />
+                                </div>
+                            )}
+
                             <div className="types-added">
-                                {newPokemon?.type?.map(type => {
-                                    let aux = getImgByType(type, imgTypes)
-                                    let imgType = aux.url
-                                    let nameType = aux.type
-                                    return (
-                                        <div className="type">
-                                            <img src={imgType} alt='img type'></img>
-                                            <div>{nameType}</div>
-                                        </div>
-
-                                    )
-
+                                Types: {newPokemon?.type?.map(type => {
+                                    if (type.name) return (<div>{type.name}</div>)
+                                    return (<div>{type}</div>)
                                 })}
                             </div>
 
                             <div className="buttons-container">
-                                {/* <button
-                                    className='btn-clear'
-                                    onClick={clearForm}
-                                >
-                                    Clear
-                                </button> */}
                                 <button
                                     type='submit'
                                     // disabled={Object.values(errors).length === 0 ? false : true}
@@ -274,7 +314,7 @@ export default function CreatePokemon({ history }) {
     )
 }
 
-const validate = (input, pokemons) => {
+const validatePokemon = (input, pokemons) => {
     let errors = {};
     //*Name
     if (!input.name) {
@@ -350,9 +390,8 @@ const validate = (input, pokemons) => {
     if (input.type.length === 0) errors.type = 'Select at least one type';
 
     //*Img
-    if (input.img) {
-        if (!/(http(s?):)([/|.|\w|\s|-])*.(?:jpg|gif|png|webp)/.test(input.img))
-            errors.img = 'Invalid URL';
+    if (!(/^data:image\/[a-z]+;base64,/.test(input.img) || /(http(s?):)([/|.|\w|\s|-])*.(?:jpg|gif|png|webp)/.test(input.img))) {
+        errors.img = 'Invalid URL';
     }
 
     return errors;

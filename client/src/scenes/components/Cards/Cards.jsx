@@ -8,6 +8,7 @@ import { paginatePokemons } from '../../../hooks/paginatePokemons';
 import { getNumberButtons } from '../../../hooks/getNumberButtons';
 import { filterByName } from '../../../hooks/filterByName'
 import PokemonsNotFound from '../PokemonsNotFound/PokemonsNotFound';
+import { sortByAttack } from '../../../hooks/sortByAttack';
 
 
 export default function Cards() {
@@ -16,7 +17,7 @@ export default function Cards() {
     const pokemons = useSelector(state => state.pokemons)
 
     // Estados para Filtros y Ordenamiento
-    const filters = useSelector(state => state.filters)
+    const filtersAndSort = useSelector(state => state.filtersAndSort)
 
 
     // Variable auxiliar para filtrar, ordenar y paginar los items
@@ -26,16 +27,23 @@ export default function Cards() {
     const resetCurrentPage = () => dispatch(actions.changePage(1))
 
     // Filtrado por tipos
-    filteredAndSorted = filters?.typeFilter
+    filteredAndSorted = filtersAndSort?.typeFilter
         ?
-        filterByType(filteredAndSorted, filters.typeFilter, resetCurrentPage)
+        filterByType(filteredAndSorted, filtersAndSort.typeFilter, resetCurrentPage)
         :
         filteredAndSorted
 
     // Filtrado por nombre
-    filteredAndSorted = filters?.nameFilter
+    filteredAndSorted = filtersAndSort?.nameFilter
         ?
-        filterByName(filteredAndSorted, filters.nameFilter, resetCurrentPage)
+        filterByName(filteredAndSorted, filtersAndSort.nameFilter, resetCurrentPage)
+        :
+        filteredAndSorted
+
+    // Ordenado por ataque
+    filteredAndSorted = filtersAndSort?.attackSort
+        ?
+        sortByAttack(filteredAndSorted, filtersAndSort.attackSort, resetCurrentPage)
         :
         filteredAndSorted
 
@@ -45,6 +53,7 @@ export default function Cards() {
     let currentPokemons = paginatePokemons(filteredAndSorted, currentPage, pokemonsPerPage)
 
     getNumberButtons(filteredAndSorted, pokemonsPerPage, dispatch, actions.setPaginatedNumbers)
+
 
     return (
         <div className='cards-container'>

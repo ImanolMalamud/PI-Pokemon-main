@@ -17,10 +17,22 @@ input[type="number"] {
   height: 500px;
 }
 
+.create-poke-title {
+  background-color: hsla(270, 100%, 60%, 0.7);
+  width: fit-content;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  box-shadow: 0 0 10px 2px black;
+  border-radius: 5px;
+}
+
 .form-container {
   position: relative;
   left: 50%;
-  top: 50%;
+  top: 60%;
   transform: translate(-50%, -50%);
   background-color: hsla(270, 100%, 80%, 0.15);
   width: 800px;
@@ -65,22 +77,20 @@ select {
   column-gap: 15%;
 }
 
-.types-and-buttons {
+.img-types-and-buttons {
   position: relative;
   display: flex;
   flex-direction: column;
+  row-gap: 20px;
 }
 
 .buttons-container {
-  position: absolute;
-  left: 50%;
-  top: 200px;
-  transform: translateX(-50%);
   display: flex;
   column-gap: 50px;
 }
 
 .buttons-container button {
+  bottom: 20px;
   font-size: 20px;
   border-radius: 4px;
   box-shadow: 0 0 5px 2px hsla(270, 100%, 40%, 0.7);
@@ -119,8 +129,6 @@ select {
   display: flex;
   justify-content: center;
   column-gap: 20px;
-  position: relative;
-  top: 50px;
 }
 
 .types-added img {
@@ -136,4 +144,8 @@ select {
   color: hsla(270, 100%, 30%);
   font-weight: lighter;
   font-size: smaller;
+}
+
+.img-create-poke {
+  max-width: 120px;
 }
