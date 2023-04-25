@@ -82,6 +82,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         pokemonsPerPage: action.payload,
+        currentPage: 1,
       };
 
     case actions.SET_TOTAL_POKEMONS_AMOUNT:

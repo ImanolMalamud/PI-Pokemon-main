@@ -22,6 +22,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(setLoading(true));
+    dispatch(getAllPokemons());
     imgTypes.length === 0 && dispatch(getAllPokemons());
 
     imgTypes.length === 0 && dispatch(getAllImgTypes());

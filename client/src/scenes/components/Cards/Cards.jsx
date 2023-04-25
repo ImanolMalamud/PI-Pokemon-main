@@ -13,37 +13,16 @@ import Paginated from "../Paginated/Paginated";
 export default function Cards() {
   const dispatch = useDispatch();
 
-  const allPokemons = useSelector((state) => state.allPokemons);
-  console.log("🚀 ~ file: Cards.jsx:17 ~ Cards ~ allPokemons:", allPokemons);
   const pokemonsFilteredAndSorted = useSelector(
     (state) => state.pokemonsFilteredAndSorted
   );
-  console.log(
-    "🚀 ~ file: Cards.jsx:21 ~ Cards ~ pokemonsFilteredAndSorted:",
-    pokemonsFilteredAndSorted
-  );
-  // const currentPokemons = useSelector((state) => state.currentPokemons);
-  // console.log(
-  //   "🚀 ~ file: Cards.jsx:26 ~ Cards ~ currentPokemons:",
-  //   currentPokemons
-  // );
+
   const currentPage = useSelector((state) => state.currentPage);
   const pokemonsPerPage = useSelector((state) => state.pokemonsPerPage);
 
   useEffect(() => {
-    dispatch(actions.getAllPokemons);
-    dispatch(actions.setCurrentPage(1));
     dispatch(actions.setTotalPokemonsAmount(pokemonsFilteredAndSorted.length));
   }, []);
-
-  // useEffect(() => {
-  //   paginatePokemons(
-  //     pokemonsFilteredAndSorted,
-  //     currentPage,
-  //     pokemonsPerPage,
-  //     dispatch
-  //   );
-  // }, [currentPage]);
 
   // PAGINATED
   const indexOfLastItem = currentPage * pokemonsPerPage;
@@ -52,15 +31,6 @@ export default function Cards() {
     indexOfFirstItem,
     indexOfLastItem
   );
-
-  // useEffect(() => {
-
-  // }, []);
-
-  // useEffect(() => {
-  //   dispatch(actions.setTotalPokemonsAmount);
-  //   dispatch(actions.setCurrentPokemons(currentPokemons));
-  // }, [currentPokemons]);
 
   // Estados para Filtros y Ordenamiento
   const filters = useSelector((state) => state.filters);
@@ -92,8 +62,8 @@ export default function Cards() {
       <Paginated />
       <div className="cards-container">
         {currentPokemons ? (
-          currentPokemons.map((pokemon, index) => {
-            return <Card key={index} pokemon={pokemon} />;
+          currentPokemons.map((pokemon) => {
+            return <Card key={pokemon.id} pokemon={pokemon} />;
           })
         ) : (
           <PokemonsNotFound />
