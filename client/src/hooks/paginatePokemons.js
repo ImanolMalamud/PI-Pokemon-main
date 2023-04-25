@@ -1,14 +1,17 @@
+import { setCurrentPokemons } from "../redux/actions";
+
 export const paginatePokemons = (
   filteredAndSorted,
   currentPage,
-  pokemonsPerPage
+  pokemonsPerPage,
+  dispatch
 ) => {
-  const indexOfLastItem = currentPage * pokemonsPerPage
-  const indexOfFirstItem = indexOfLastItem - pokemonsPerPage
+  const indexOfLastItem = currentPage * pokemonsPerPage;
+  const indexOfFirstItem = indexOfLastItem - pokemonsPerPage;
   const currentPokemons = filteredAndSorted.slice(
     indexOfFirstItem,
     indexOfLastItem
-  )
+  );
 
-  return currentPokemons
-}
+  dispatch(setCurrentPokemons(currentPokemons));
+};

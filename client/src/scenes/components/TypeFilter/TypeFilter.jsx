@@ -1,44 +1,43 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllTypes, setFilterByType } from '../../../redux/actions';
-
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTypes, setFilterByType } from "../../../redux/actions";
+import { typesData } from "../../../data/typesData";
 
 const TypeFilter = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getAllTypes());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllTypes());
+  }, [dispatch]);
 
-    const types = useSelector(state => state.types)
+  const types = useSelector((state) => state.types);
 
-    const handleChangeFilter = e => {
-        // console.log(e.target.value);
-        dispatch(setFilterByType(e.target.value));
-    };
+  let renderTypes = types.length ? types : typesData;
 
-    return (
-        <select
-            class="form-select filterCategory"
-            aria-label="Default select example"
-            name="type"
-            id="type"
-            onChange={handleChangeFilter}
-            menuPlacement="top"
-            defaultValue={'DEFAULT'}
-        >
+  const handleChangeFilter = (e) => {
+    // console.log(e.target.value);
+    dispatch(setFilterByType(e.target.value));
+  };
 
-            <option value="All Types" selected>All Types</option>
-            {types[0] ? types.map(type => {
-                return (
-                    <option>{type.name}</option>
-                )
-            }) : <option>No types found</option>}
-
-        </select>
-
-    );
+  return (
+    <select
+      className="form-select filterCategory"
+      aria-label="Default select example"
+      name="type"
+      id="type"
+      onChange={handleChangeFilter}
+      defaultValue={"All Types"}
+    >
+      {renderTypes[0] ? (
+        renderTypes.map((type, index) => {
+          return <option key={index}>{type.name}</option>;
+        })
+      ) : (
+        <option key={"no types found"}>No types found</option>
+      )}
+    </select>
+  );
 };
 
 export default TypeFilter;

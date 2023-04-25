@@ -1,3 +1,20 @@
+**IMPORTANT:** Working with these versions:
+
+- **Node**: >12.18.3
+- **NPM**: >6.14.16
+- **react**: 17.0.1
+- **react-dom**: 17.0.1
+- **react-router-dom**: 5.2.0
+- **redux**: 4.0.5
+- **react-redux**: 7.2.3
+
+To verify the installed versions:
+
+```bash
+node -v
+npm -v
+```
+
 ## Summary
 
 This SPA consumes the external API [pokeapi](https://pokeapi.co/)
@@ -10,9 +27,7 @@ This SPA consumes the external API [pokeapi](https://pokeapi.co/)
 
 With the data recieved, I've created my own API, which is consumed by the client to render the pokemons' information. To access that information, there is a paginated, which works also with a combined sorting and filtering, and it can be used a dynamic searchbar as well.
 
-
 **NOTE**: The pokeapi has its own endpoints with filtered and sorted pokemons. In this project there wasn't allowed to use those ones. That work was done manually.
-
 
 # Technologies Used
 
@@ -54,21 +69,4 @@ Ej:
   DB_NAME=pokemon
   DB_PORT=5432
   DB_DEPLOY=postgresql://postgres:MrJv16x0b2ZuEaaxc3NB@containers-us-west-153.railway.app:7598/railway
-```
-
-**IMPORTANTE:** Working with these versions:
-
-- **Node**: >12.18.3
-- **NPM**: >6.14.16
-- **react**: 17.0.1
-- **react-dom**: 17.0.1
-- **react-router-dom**: 5.2.0
-- **redux**: 4.0.5
-- **react-redux**: 7.2.3
-
-To verify the installed versions:
-
-```bash
-node -v
-npm -v
 ```
