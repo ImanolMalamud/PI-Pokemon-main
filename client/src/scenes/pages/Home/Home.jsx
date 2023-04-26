@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      <NavBar />
+      {/* <NavBar /> */}
       <SearchBar />
       <TypeFilter />
       {loading ? <h1 style={{ color: "white" }}>loading...</h1> : <Cards />}

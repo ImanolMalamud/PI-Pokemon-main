@@ -5,13 +5,11 @@
 }
 
 .navbar-container {
-  background-color: hsl(0, 0%, 0%, 0.5);
+  background-color: hsla(295, 4%, 20%);
   display: flex;
-  min-width: fit-content;
   justify-content: space-between;
-  width: 100%;
+  width: 100vw;
   height: 50px;
-  margin-bottom: 15px;
 }
 
 .logo-container {

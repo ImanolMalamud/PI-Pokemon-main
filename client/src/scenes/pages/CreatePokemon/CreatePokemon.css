@@ -9,8 +9,6 @@ input[type="number"] {
 }
 
 .create-poke {
-  position: absolute;
-  top: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   width: 100%;

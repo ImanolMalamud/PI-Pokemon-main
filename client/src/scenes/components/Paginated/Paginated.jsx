@@ -21,45 +21,28 @@ export default function Paginated() {
   };
 
   return (
-    <div>
-      <select value={pokemonsPerPage} onChange={handlePokemonsPerPageChange}>
-        <option value={5}>5 per page</option>
-        <option value={10}>10 per page</option>
-        <option value={25}>25 per page</option>
-        <option value={50}>50 per page</option>
-      </select>
-      <div style={{ color: "white" }}>
+    <div className="paginated-container">
+      <div className="paginated-buttons">
         {pageNumbers.map((pageNumber) => (
           <button
             key={pageNumber}
-            className={pageNumber === currentPage ? "active" : ""}
+            className={pageNumber === currentPage ? "paginated-btn-active" : ""}
             onClick={() => handlePageChange(pageNumber)}
           >
             {pageNumber}
           </button>
         ))}
       </div>
+      <select
+        className="pokemons-per-page"
+        value={pokemonsPerPage}
+        onChange={handlePokemonsPerPageChange}
+      >
+        <option value={5}>5 per page</option>
+        <option value={10}>10 per page</option>
+        <option value={25}>25 per page</option>
+        <option value={50}>50 per page</option>
+      </select>
     </div>
   );
-
-  // return (
-  //   <div className="paginated-container">
-  //     {paginatedNumbers
-  //       ? paginatedNumbers.map((button, index) => {
-  //           if (button === currentPage) {
-  //             return (
-  //               <button key={index} onClick={handleClick} value={button}>
-  //                 {button}
-  //               </button>
-  //             );
-  //           }
-  //           return (
-  //             <button key={index} onClick={handleClick} value={button}>
-  //               {button}
-  //             </button>
-  //           );
-  //         })
-  //       : ""}
-  //   </div>
-  // );
 }

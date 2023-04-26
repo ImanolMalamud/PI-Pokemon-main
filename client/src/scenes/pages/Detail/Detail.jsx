@@ -21,7 +21,6 @@ export default function Detail() {
 
   return (
     <>
-      <NavBar />
       <div className="detail-container">
         {pokemonDetail ? (
           <>

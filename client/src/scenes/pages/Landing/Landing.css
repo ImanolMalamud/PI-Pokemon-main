@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --yellow1: #ffcc00;
   --yellow2: #d5a100;
   --blue1: #0075be;
@@ -7,16 +7,17 @@
   --white: rgb(250, 250, 250);
   --black: rgb(30, 30, 30);
   --gray: #dfdfdf;
-}
+} */
 
 .mainContainer {
   top: 0;
-  background-image: url("../../../img/create-poke-2.jpg");
+  /* background-image: url("../../../img/pokeballPortrait.jpg"); */
   background-size: cover;
   background-position-x: center;
+  background-position-y: center;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,8 +32,10 @@
   width: 100%;
 }
 
-.containerInfo img {
-  max-width: 500px;
+.catching-phrase {
+  position: absolute;
+  top: 25%;
+  color: white;
 }
 
 .buttonGo {

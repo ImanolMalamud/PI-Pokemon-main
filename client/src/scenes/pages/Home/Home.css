@@ -1,16 +1,10 @@
 .home-container {
-  position: absolute;
-  left: 50%;
   width: 100%;
   min-height: 100vh;
-  top: 0;
-
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  background-image: url("../../../img/create-poke-4.webp");
+  background-image: url("../../../img/blue-img-background.jpg");
   background-size: cover;
   background-attachment: fixed;
 }

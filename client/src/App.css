@@ -1,0 +1,19 @@
+.app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Default */
+  width: -moz-calc(100vw); /* Firefox */
+  width: -webkit-calc(100vw); /* Chrome, Safari, Opera */
+  width: calc(100vw); /* Standard */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("./img/pokeballPortrait.jpg");
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: center;
+}
