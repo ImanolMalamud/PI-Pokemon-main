@@ -1,0 +1,34 @@
+.paginated-container {
+  width: fit-content;
+  margin: 20px 0 20px 0;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+  z-index: 1;
+}
+
+.pokemons-per-page {
+  width: 150px;
+  padding: 2px;
+}
+
+.paginated-buttons {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 5px;
+}
+
+.paginated-container button {
+  font-size: 1.3rem;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.paginated-btn-active {
+  background-color: hsl(200, 100%, 50%, 0.9);
+}
+
+.paginated-container button:hover {
+  background-color: #00aaff80;
+  border-color: hsl(200, 100%, 50%, 0.5);
+}

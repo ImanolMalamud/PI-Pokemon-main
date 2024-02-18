@@ -1,0 +1,9 @@
+.loading-container {
+    background-color: white;
+    color: black;
+    width: fit-content;
+    height: fit-content;
+    text-align: center;
+    text-justify: center;
+    font-size: 30px;
+}

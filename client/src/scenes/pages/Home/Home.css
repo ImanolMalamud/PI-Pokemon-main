@@ -1,0 +1,28 @@
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("../../../img/blue-img-background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.search-filter-sort {
+  width: 100%;
+  display: flex;
+  column-gap: 30px;
+  justify-content: center;
+}
+
+.loading {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
