@@ -5,6 +5,10 @@ const router = Router();
 
 router.get('/', async (req, res) => {
 	const { name } = req.query;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> master
 	try {
 		if (name) {
 			const findPokemon = await controlers.getPokemonsName(name);
